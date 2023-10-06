@@ -3,6 +3,7 @@ import typescriptLogo from "./typescript.svg";
 import viteLogo from "/vite.svg";
 import { setupCounter } from "./counter.ts";
 import "bootstrap";
+import { setUpModal } from "./ts/appointmentManagement.ts";
 
 // document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
 //   <div>
@@ -22,4 +23,5 @@ import "bootstrap";
 //   </div>
 // `;
 
+setUpModal();
 setupCounter(document.querySelector<HTMLButtonElement>("#counter")!);
