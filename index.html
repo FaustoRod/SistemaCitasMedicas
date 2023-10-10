@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -7,224 +7,76 @@
     <title>Sistema de Citas</title>
   </head>
   <body>
-    <header class="navbar navbar-expand-lg bg-body-secondary mb-2">
-      <nav class="container-xxl">
-        <a class="navbar-brand" href="#">CITAMED</a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Link</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a
-                class="nav-link dropdown-toggle"
-                href="#"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Dropdown
-              </a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li><hr class="dropdown-divider" /></li>
-                <li>
-                  <a class="dropdown-item" href="#">Something else here</a>
-                </li>
-              </ul>
-            </li>
-          </ul>
-          <ul class="navbar-nav flex-row flex-wrap ms-md-auto">
-            <li class="nav-item">
-              <span class="nav-link active" aria-current="page" href="#"
-                >User Name</span
-              >
-            </li>
-            <button class="btn btn-primary">Log In</button>
-          </ul>
-        </div>
-      </nav>
-    </header>
-    <!-- <nav class="navbar navbar-expand-lg bg-body-secondary mb-2">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">Navbar</a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Link</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a
-                class="nav-link dropdown-toggle"
-                href="#"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Dropdown
-              </a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li><hr class="dropdown-divider" /></li>
-                <li>
-                  <a class="dropdown-item" href="#">Something else here</a>
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav> -->
-    <div id="app" class="container">
-      <div class="row"><h1>Citas</h1></div>
-      <div class="mb-3">
-        <button
-          type="button"
-          class="btn btn-primary"
-          data-bs-toggle="modal"
-          data-bs-target="#createModal"
-        >
-          Nueva Cita
-        </button>
-      </div>
+    <div id="app">
+      <section id="header"></section>
 
-      <!-- TABLE -->
-      <div class="row">
-        <table class="table table-bordered table-striped table-hover">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Nombre</th>
-              <th scope="col">Hora</th>
-              <th scope="col">Estado</th>
-              <th scope="col"></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Juan Perez</td>
-              <td>12:00 pm</td>
-              <td>Pendiente</td>
-              <td>
-                <button class="btn btn-primary">+</button>
-                <button class="btn btn-primary">+</button>
-                <button class="btn btn-primary">+</button>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>Maria Tomas</td>
-              <td>12:00 pm</td>
-              <td>Pendiente</td>
-              <td>
-                <button class="btn btn-primary">+</button>
-                <button class="btn btn-primary">+</button>
-                <button class="btn btn-primary">+</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      <section id="intro"></section>
 
-      <!-- CREATE MODAL -->
-      <div
-        class="modal fade"
-        id="createModal"
-        tabindex="-1"
-        aria-labelledby="createModalLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="createModalLabel">Nueva Cita</h5>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div class="modal-body">
-              <form>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="appointment-id"
-                  hidden
-                />
-                <div class="mb-3">
-                  <label for="appointment-name" class="col-form-label"
-                    >Nombre:</label
-                  >
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="appointment-name"
-                  />
-                </div>
-                <div class="mb-3">
-                  <label for="appointment-date" class="col-form-label"
-                    >Fecha:</label
-                  >
-                  <input
-                    type="date"
-                    class="form-control"
-                    id="appointment-date"
-                  />
-                </div>
-              </form>
-            </div>
-            <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                Cancelar
-              </button>
-              <button
-                id="saveAppointmentButton"
-                type="button"
-                class="btn btn-primary"
-              >
-                Guardar
-              </button>
+      <section id="specialties">
+        <!-- <div class="row text-center"><h1>Especialidades</h1></div>
+        <div class="row">
+          <div class="col-12 col-lg-3">
+            <div class="card">
+              <img
+                src="./public/images/jordan-peterson-poetry.png"
+                class="card-img-top"
+              />
+              <div class="card-body">
+                <h5 class="card-title">Psicologia Clinica</h5>
+                <p>
+                  Some quick example text to build on the card title and make up
+                  the bulk of the card's content.
+                </p>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
+          <div class="col-3">
+            <div class="card">
+              <img
+                src="./public/images/jordan-peterson-poetry.png"
+                class="card-img-top"
+              />
+              <div class="card-body">
+                <h5 class="card-title">Psicologia Clinica</h5>
+                <p>
+                  Some quick example text to build on the card title and make up
+                  the bulk of the card's content.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-3">
+            <div class="card">
+              <img
+                src="./public/images/jordan-peterson-poetry.png"
+                class="card-img-top"
+              />
+              <div class="card-body">
+                <h5 class="card-title">Psicologia Clinica</h5>
+                <p>
+                  Some quick example text to build on the card title and make up
+                  the bulk of the card's content.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-3">
+            <div class="card">
+              <img
+                src="./public/images/jordan-peterson-poetry.png"
+                class="card-img-top"
+              />
+              <div class="card-body">
+                <h5 class="card-title">Psicologia Clinica</h5>
+                <p>
+                  Some quick example text to build on the card title and make up
+                  the bulk of the card's content.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div> -->
+      </section>
     </div>
     <script type="module" src="/src/main.ts"></script>
   </body>
