@@ -3,13 +3,13 @@ import { BaseComponent } from "../baseComponent";
 export default class Intro extends BaseComponent {
   constructor() {
     const template = /*html */ `
-    <div class="container-fluid bg-danger">
+    <div class="container-fluid bg-dark">
     <div class="container">
       <div class="row">
         <div
-          class="col-lg-6 order-2 order-lg-1 text-center mt-5 mb-5 justify-content-center"
+          class="col-lg-6 order-2 order-lg-1 text-white text-center mt-5 mb-5 justify-content-center"
         >
-          <h1>Jordan B. Peterson</h1>
+          <h1 class="mt-5 mb-4">Jordan B. Peterson</h1>
           <p>
             Phd en psicologia clinica. Profesor de psicologia en la
             Universidad de Toronto. Con mas de 20 años de experiencia.
