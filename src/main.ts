@@ -12,6 +12,4 @@ const intro = new Intro();
 document.querySelector<HTMLDivElement>("#intro")!.innerHTML =
   intro.getElement();
 
-const specialities = new Specialities();
-document.querySelector<HTMLDivElement>("#specialties")!.innerHTML =
-  specialities.getElement();
+ new Specialities();
