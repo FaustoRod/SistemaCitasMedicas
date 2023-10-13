@@ -4,6 +4,7 @@ import Header from "./components/header/header.ts";
 import Intro from "./components/intro/intro.ts";
 import Specialities from "./components/specialties/specialties.ts";
 import { initMap } from "./ts/maps.ts";
+import Location from "./components/location/location.ts";
 
 const header = new Header();
 document.querySelector<HTMLDivElement>("#header")!.innerHTML =
@@ -15,4 +16,5 @@ document.querySelector<HTMLDivElement>("#intro")!.innerHTML =
 
 new Specialities();
 
+new Location();
 initMap();
