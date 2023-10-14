@@ -1,26 +1,88 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8"/>
+    <link rel="icon" type="image/svg+xml" href="/vite.svg"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Sistema de Citas</title>
     <script type="module" src="./src/ts/maps.ts"></script>
-  </head>
-  <body>
-    <div id="app">
-      <section id="header"></section>
+</head>
+<body>
+<div id="app">
+    <section id="header"></section>
 
-      <section id="intro"></section>
+    <section id="intro"></section>
 
-      <section id="specialties"></section>
-        
-      <section id="location">
-       
-      </section>
-    </div>
-    <script type="module" src="/src/main.ts"></script>
-    <script>(g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})
-    ({key: "AIzaSyCDM4Wq4eE8HX0rpbJhwwZOEhX0r3VNF2g", v: "beta"});</script>
-  </body>
+    <section id="specialties"></section>
+
+    <section id="information">
+        <div class="container-fluid">
+            <div class="row"><h1 class="text-center">Informacion</h1></div>
+            <div class="row">
+                <div class="col-6">
+                    <section id="location">
+
+                    </section>
+                </div>
+                <div class="col-6">
+                    <section id="contact">
+                      <h1 class="text-center">Contactenos</h1>
+                        <form>
+                            <div>
+                                <div class="mb-3">
+                                    <label for="name" class="form-label">Name</label>
+                                    <input type="text" class="form-control" id="name">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">E-mail</label>
+                                    <input type="email" class="form-control" id="email">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="phone" class="form-label">Telefono</label>
+                                    <input type="text" class="form-control" id="phone">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="specialty" class="form-label">Especialidad</label>
+                                    <select class="form-select" id="specialty">
+                                        <option>Matrimonio</option>
+                                        <option>Ninos</option>
+                                        <option>Mujere</option>
+                                        <option>CLinica</option>
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="question" class="form-label">Pregunta</label>
+                                    <textarea type="text" class="form-control" id="question"></textarea>
+                                </div>
+                            </div>
+                        </form>
+                    </section>
+
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<script type="module" src="/src/main.ts"></script>
+<script>(g => {
+    var h, a, k, p = "The Google Maps JavaScript API", c = "google", l = "importLibrary", q = "__ib__", m = document,
+        b = window;
+    b = b[c] || (b[c] = {});
+    var d = b.maps || (b.maps = {}), r = new Set, e = new URLSearchParams,
+        u = () => h || (h = new Promise(async (f, n) => {
+            await (a = m.createElement("script"));
+            e.set("libraries", [...r] + "");
+            for (k in g) e.set(k.replace(/[A-Z]/g, t => "_" + t[0].toLowerCase()), g[k]);
+            e.set("callback", c + ".maps." + q);
+            a.src = `https://maps.${c}apis.com/maps/api/js?` + e;
+            d[q] = f;
+            a.onerror = () => h = n(Error(p + " could not load."));
+            a.nonce = m.querySelector("script[nonce]")?.nonce || "";
+            m.head.append(a)
+        }));
+    d[l] ? console.warn(p + " only loads once. Ignoring:", g) : d[l] = (f, ...n) => r.add(f) && u().then(() => d[l](f, ...n))
+})
+({key: "AIzaSyCDM4Wq4eE8HX0rpbJhwwZOEhX0r3VNF2g", v: "beta"});</script>
+</body>
 </html>
