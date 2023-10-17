@@ -1,4 +1,5 @@
 ﻿import { BaseComponent } from "../baseComponent.ts";
+import { initMap } from "../../ts/maps.ts";
 
 export default class Location extends BaseComponent {
   constructor() {
@@ -9,5 +10,7 @@ export default class Location extends BaseComponent {
 
     document.querySelector<HTMLDivElement>("#location")!.innerHTML =
       this.getElement();
+
+    initMap();
   }
 }

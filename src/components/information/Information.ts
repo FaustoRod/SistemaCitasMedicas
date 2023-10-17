@@ -8,12 +8,12 @@ export default class Information extends BaseComponent {
             <div class="container-fluid">
             <div class="row"><h1 class="text-center">Informacion</h1></div>
             <div class="row">
-                <div class="col-6">
+                <div class="col-12 col-md-6 order-2 order-md-1">
                     <section id="location">
 
                     </section>
                 </div>
-                <div class="col-6">
+                <div class="col-12 col-md-6 order-1 order-md-2>
                     ${new Contact().getElement()}
                 </div>
             </div>
