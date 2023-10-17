@@ -4,6 +4,7 @@ import Location from "../location/location.ts";
 
 export default class Information extends BaseComponent {
   constructor() {
+    const contact = new Contact();
     const template = `
             <div class="container-fluid mt-5">
             <div class="row"><h1 class="text-center">Informacion</h1></div>
@@ -17,7 +18,7 @@ export default class Information extends BaseComponent {
                 </svg>
                 </div>
                 <div class="col-12 col-md-6 order-1 order-md-2>
-                    ${new Contact().getElement()}
+                    ${contact.getElement()}
                 </div>
             </div>
         </div>
@@ -27,6 +28,7 @@ export default class Information extends BaseComponent {
     document.querySelector<HTMLDivElement>("#information")!.innerHTML =
       this.getElement();
 
+    contact.addListeners();
     new Location();
   }
 }
