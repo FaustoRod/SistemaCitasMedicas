@@ -7,7 +7,7 @@ export default class Header extends BaseComponent {
     const template =
       /*html*/
       `
-    <header class="navbar navbar-expand-lg bg-body-secondary mb-2">
+    <header class="navbar navbar-expand-lg bg-body-secondary mb-2 fixed-top">
     <nav class="container-xxl">
       <a class="navbar-brand" href="#">CITAMED</a>
       <button

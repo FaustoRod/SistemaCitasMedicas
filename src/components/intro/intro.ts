@@ -3,7 +3,7 @@ import { BaseComponent } from "../baseComponent";
 export default class Intro extends BaseComponent {
   constructor() {
     const template = /*html */ `
-    <div class="container-fluid bg-dark">
+    <div class="container-fluid bg-dark mt-5">
     <div class="container">
       <div class="row">
         <div
@@ -18,7 +18,7 @@ export default class Intro extends BaseComponent {
             jovenes alrededor del mundo.
           </p>
         </div>
-        <div class="col-lg-6 order-1 order-lg-2">
+        <div class="col-lg-6 order-1 order-lg-2 mt-5">
           <img
             src="./public/images/jordan-peterson-poetry.png"
             class="img-fluid"
