@@ -42,7 +42,8 @@ export default class Contact extends BaseComponent {
   }
 
   addListeners() {
-    const informationBtn = document.getElementById("contact-form");
+    const informationBtn =
+      document.querySelector<HTMLFormElement>("#contact-form");
     if (informationBtn)
       informationBtn.addEventListener("submit", () => {
         Swal.fire({
@@ -51,6 +52,7 @@ export default class Contact extends BaseComponent {
           icon: "success",
           showConfirmButton: false,
         });
+        informationBtn.reset();
       });
   }
 }
