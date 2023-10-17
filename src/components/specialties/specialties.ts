@@ -9,7 +9,7 @@ export default class Specialities extends BaseComponent {
   constructor() {
     const template = /*html */ `
         <div class="container-fluid">
-            <div class="row text-center mt-3"><h1>Especialidades</h1></div>
+            <div class="row text-center mt-5"><h1>Especialidades</h1></div>
             <div id="specialty-cards-desktop" class="row d-none d-md-flex"></div>
             <div id="specialty-cards-mobile" class="row d-md-none"></div>
         </div>    

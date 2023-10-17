@@ -17,4 +17,5 @@ document.querySelector<HTMLDivElement>("#intro")!.innerHTML =
 new Specialities();
 
 new Information();
+
 new Footer();

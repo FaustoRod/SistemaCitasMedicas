@@ -53,7 +53,7 @@ export default class Header extends BaseComponent {
               >User Name</span
             >
           </li>
-          <button class="btn btn-primary">Log In</button>
+          <button class="btn btn-primary">Ingresar</button>
         </ul>
       </div>
     </nav>
