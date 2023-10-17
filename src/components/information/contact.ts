@@ -4,7 +4,6 @@ export default class Contact extends BaseComponent {
   constructor() {
     const template = `
         <section id="contact">
-                      <h1 class="text-center">Contactenos</h1>
                         <form>
                             <div>
                                 <div class="mb-3">
@@ -33,6 +32,8 @@ export default class Contact extends BaseComponent {
                                     <label for="question" class="form-label">Pregunta</label>
                                     <textarea type="text" class="form-control" id="question"></textarea>
                                 </div>
+                                
+                                <button class="btn btn-primary col-12">Enviar</button>
                             </div>
                         </form>
                     </section>
