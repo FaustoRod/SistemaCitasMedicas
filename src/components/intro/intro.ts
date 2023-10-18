@@ -28,6 +28,6 @@ export default class Intro extends BaseComponent {
     </div>
   </div>`;
 
-    super(template);
+    super(template, "#intro");
   }
 }

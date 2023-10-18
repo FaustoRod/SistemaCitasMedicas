@@ -15,10 +15,10 @@ export default class Specialities extends BaseComponent {
         </div>    
     `;
 
-    super(template);
+    super(template, "#specialties");
 
-    document.querySelector<HTMLDivElement>("#specialties")!.innerHTML =
-      this.getElement();
+    // document.querySelector<HTMLDivElement>("#specialties")!.innerHTML =
+    //   this.getElement();
 
     this.specialties = this.getSpecialties();
 

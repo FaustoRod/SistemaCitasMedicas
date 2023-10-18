@@ -10,10 +10,10 @@ export default class Location extends BaseComponent {
  
 </div>
  `;
-    super(template);
+    super(template, "#location");
 
-    document.querySelector<HTMLDivElement>("#location")!.innerHTML =
-      this.getElement();
+    // document.querySelector<HTMLDivElement>("#location")!.innerHTML =
+    //   this.getElement();
 
     initMap();
   }

@@ -23,10 +23,10 @@ export default class Information extends BaseComponent {
             </div>
         </div>
             `;
-    super(template);
+    super(template, "#information");
 
-    document.querySelector<HTMLDivElement>("#information")!.innerHTML =
-      this.getElement();
+    // document.querySelector<HTMLDivElement>("#information")!.innerHTML =
+    //   this.getElement();
 
     contact.addListeners();
     new Location();

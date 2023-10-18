@@ -26,9 +26,9 @@ export default class Footer extends BaseComponent {
         </div>
             `;
 
-    super(template);
+    super(template, "#footer");
 
-    document.querySelector<HTMLDivElement>("#footer")!.innerHTML =
-      this.getElement();
+    // document.querySelector<HTMLDivElement>("#footer")!.innerHTML =
+    //   this.getElement();
   }
 }

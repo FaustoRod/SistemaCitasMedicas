@@ -37,7 +37,7 @@ export default class Header extends BaseComponent {
     </nav>
   </header>`;
 
-    super(template);
+    super(template, "#header");
   }
 }
 
