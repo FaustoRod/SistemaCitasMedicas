@@ -3,7 +3,7 @@ import { Appointment } from "./interfaces/appointment";
 
 export const getAppointments = () => {
   const appointmentsJson = localStorage.getItem(
-    import.meta.env.VITE_STORAGE_KEY
+    import.meta.env.VITE_STORAGE_KEY,
   );
 
   let appointmentList: Appointment[] = [];
@@ -19,8 +19,6 @@ export const setUpModal = () => {
   const element = document.getElementById("saveAppointmentButton");
   if (element) element.addEventListener("click", () => saveAppointment());
 };
-
-export const openModal = (id?: number) => {};
 
 export const saveAppointment = () => {
   const name = document.querySelector<HTMLInputElement>("#appointment-name");
@@ -48,7 +46,7 @@ export const saveAppointment = () => {
 
     localStorage.setItem(
       import.meta.env.VITE_STORAGE_KEY,
-      JSON.stringify(newAppointmentList)
+      JSON.stringify(newAppointmentList),
     );
   }
 };

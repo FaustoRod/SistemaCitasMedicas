@@ -1,13 +1,12 @@
 ﻿import Swal from "sweetalert2";
+import { UserManagement } from "../../ts/utils/userManagement.ts";
 
 export class LoginForm {
   private userNameInputId = "userNameInput";
   private passwordInputId = "passwordInput";
-  private userTypeId = "userType";
 
   userNameInput: HTMLInputElement | null | undefined;
   passwordInput: HTMLInputElement | null | undefined;
-  userTypeRadio: HTMLInputElement | null | undefined;
   errorMessage: HTMLInputElement | null | undefined;
 
   openForm = () => {
@@ -17,7 +16,8 @@ export class LoginForm {
       focusConfirm: false,
       confirmButtonText: "Ingresar",
       preConfirm: () => {
-        this.validateForm();
+        this.validateForm() && this.logIn();
+        console.log(new UserManagement().getCurrentUser());
         return false;
       },
       didOpen: () => {
@@ -34,10 +34,6 @@ export class LoginForm {
       `#${this.passwordInputId}`,
     );
 
-    this.userTypeRadio = document.querySelector<HTMLInputElement>(
-      `#${this.userTypeId}`,
-    );
-
     this.errorMessage =
       document.querySelector<HTMLInputElement>("#login-form-error");
   };
@@ -47,14 +43,6 @@ export class LoginForm {
     <span id="login-form-error" class="text-danger"></span>
     <input id="userNameInput" class="swal2-input"  placeholder="Usuario">
     <input id="passwordInput" class="swal2-input" type="password" placeholder="Contraseña">
-    <div class="swal2-radio">
-        <label>
-            <input type="radio" name="swal2-radio" value="1"><span class="swal2-label">Paciente</span>
-        </label>
-        <label>
-            <input type="radio" name="swal2-radio" value="2"><span class="swal2-label">Doctor</span>
-        </label>
-    </div>
       `;
   };
 
@@ -73,15 +61,18 @@ export class LoginForm {
       return false;
     }
 
-    const radio = document.querySelector<HTMLInputElement>(
-      'input[type="radio"]:checked',
-    );
-
-    if (!radio) {
-      this.errorMessage!.innerText = "Seleccione tipo de usuario";
-      return false;
-    }
-
     return true;
+  };
+
+  private logIn = () => {
+    if (
+      new UserManagement().logInUser(
+        this.userNameInput!.value,
+        this.passwordInput!.value,
+      )
+    )
+      return true;
+    this.errorMessage!.innerText = "Usuario o Contraseña Incorrecta";
+    return false;
   };
 }

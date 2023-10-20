@@ -2,7 +2,8 @@
 
 interface ImportMetaEnv {
   readonly VITE_STORAGE_KEY: string;
-  readonly VITE_MAPS_KEY: string;
+  readonly VITE_USER_STORAGE_KEY: string;
+  readonly VITE_CURRENT_USER_STORAGE_KEY: string;
   // more env variables...
 }
 
