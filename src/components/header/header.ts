@@ -1,7 +1,7 @@
 import { BaseComponent } from "../baseComponent";
 import data from "../../data/header.json";
 import { HeaderItem } from "../../ts/interfaces/headerItem.ts";
-import Swal from "sweetalert2";
+import { LoginForm } from "../login/loginForm.ts";
 export default class Header extends BaseComponent {
   constructor() {
     const template =
@@ -46,34 +46,45 @@ export default class Header extends BaseComponent {
     const btnLogin = document.querySelector<HTMLButtonElement>("#loginBtn");
     if (btnLogin) {
       btnLogin.addEventListener("click", () => {
-        Swal.fire({
-          title: "Ingresar",
-          html: this.getLoginForm(),
-          focusConfirm: false,
-          confirmButtonText: "Ingresar",
-          preConfirm: () => {
-            return false;
-          },
-        });
+        new LoginForm().openForm();
       });
     }
   };
 
-  private getLoginForm = () => {
-    return `
-    <span id="login-form-error" class="text-danger"></span>
-    <input id="swal-input1" class="swal2-input"  placeholder="Usuario">
-    <input id="swal-input2" class="swal2-input" type="password" placeholder="Contraseña">
-    <div class="swal2-radio">
-        <label>
-            <input type="radio" name="swal2-radio" value="1"><span class="swal2-label">Paciente</span>
-        </label>
-        <label>
-            <input type="radio" name="swal2-radio" value="2"><span class="swal2-label">Doctor</span>
-        </label>
-    </div>
-    `;
-  };
+  // private getLoginForm = () => {
+  //   return `
+  //   <span id="login-form-error" class="text-danger"></span>
+  //   <input id="userNameInput" class="swal2-input"  placeholder="Usuario">
+  //   <input id="passwordInput" class="swal2-input" type="password" placeholder="Contraseña">
+  //   <div class="swal2-radio">
+  //       <label>
+  //           <input type="radio" name="swal2-radio" value="1"><span class="swal2-label">Paciente</span>
+  //       </label>
+  //       <label>
+  //           <input type="radio" name="swal2-radio" value="2"><span class="swal2-label">Doctor</span>
+  //       </label>
+  //   </div>
+  //   `;
+  // };
+  //
+  // private login = () => {
+  //   const userName = document.querySelector<HTMLInputElement>("#userNameInput");
+  //
+  //   if (userName) {
+  //     if (userName.value.trim().length <= 0) {
+  //       return false;
+  //     }
+  //   }
+  //
+  //   const password = document.querySelector<HTMLInputElement>("#passwordInput");
+  //   if (password) {
+  //     if (password.value.trim().length <= 0) {
+  //       return false;
+  //     }
+  //   }
+  //
+  //   return true;
+  // };
 }
 
 const getHeaderItems = () => {
