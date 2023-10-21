@@ -6,15 +6,15 @@
   protected getData = <T>(key: string): T | null => {
     const dataJson = localStorage.getItem(key);
     if (dataJson) {
-      return dataJson as unknown as T;
+      return JSON.parse(dataJson) as T;
     }
     return null;
   };
 
-  protected getDataArray = <T>(key: string): T[] | [] => {
+  protected getDataArray = <T>(key: string): T[] => {
     const dataJson = localStorage.getItem(key);
     if (dataJson) {
-      return dataJson as unknown as T[];
+      return JSON.parse(dataJson) as T[];
     }
     return [];
   };

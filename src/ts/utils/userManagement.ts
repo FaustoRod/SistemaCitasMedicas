@@ -13,7 +13,6 @@ export class UserManagement extends DataManagement {
   logInUser = (userName: string, password: string) => {
     const users = this.getAllUsers();
 
-    console.log(Array.isArray(users));
     const currentUser = users.find(
       (user) => user.userName === userName && user.password === password,
     );
@@ -39,17 +38,15 @@ export class UserManagement extends DataManagement {
 
   loadDefaultUsers = () => {
     this.saveData("", import.meta.env.VITE_USER_STORAGE_KEY);
+    this.saveData("", import.meta.env.VITE_CURRENT_USER_STORAGE_KEY);
     const users = data as unknown as User[];
     users.forEach((user) => {
       this.createUser(user);
     });
   };
 
-  private getAllUsers = () => {
-    const users = this.getData<User[]>(import.meta.env.VITE_USER_STORAGE_KEY);
-
-    return users ?? [];
-  };
+  private getAllUsers = () =>
+    this.getDataArray<User>(import.meta.env.VITE_USER_STORAGE_KEY);
 
   private getUserNewId = () => {
     return this.getAllUsers().length + 1;
