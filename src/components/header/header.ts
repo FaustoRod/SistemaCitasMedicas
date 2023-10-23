@@ -26,8 +26,8 @@ export default class Header extends BaseComponent {
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        ${getHeaderItems()}
+        <ul id="header-left-section" class="navbar-nav me-auto mb-2 mb-lg-0">
+        
         </ul>
         <div id="header-right-section" class="d-flex"></div>
          </div>
@@ -40,6 +40,7 @@ export default class Header extends BaseComponent {
 
   override render() {
     super.render();
+    this.renderLeftSection();
     this.renderRightSection();
     // this.setCurrentUser();
     this.addListener();
@@ -82,6 +83,33 @@ export default class Header extends BaseComponent {
     this.addListener();
   };
 
+  renderLeftSection = () => {
+    const headerLeftSection = document.querySelector<HTMLElement>(
+      "#header-left-section",
+    );
+    if (headerLeftSection) {
+      const headerItems = data as unknown as HeaderItem[];
+
+      let result = "";
+
+      headerItems.forEach((item) => {
+        result += `
+    <li class="nav-item">
+        <a class="nav-link active" aria-current="page" href="${item.link}">${item.text}</a>
+    </li>
+    `;
+      });
+
+      if (this.currentUser) {
+        result += `<li class="nav-item">
+        <a class="nav-link active" aria-current="page" href="#">Citas</a>
+    </li>`;
+      }
+
+      headerLeftSection.innerHTML = result;
+    }
+  };
+
   private renderSessionButton = () => {
     return `
     <button id="loginBtn" type="button" class="btn ${
@@ -100,28 +128,10 @@ export default class Header extends BaseComponent {
   };
 
   setCurrentUser = () => {
-    const logInBtn = document.querySelector<HTMLElement>("#loginBtn");
-    const element = document.querySelector<HTMLElement>("#username-label");
     this.currentUser = new UserManagement().getCurrentUser();
 
-    if (element && logInBtn) {
-      this.renderRightSection();
-    }
+    this.renderRightSection();
+
+    this.renderLeftSection();
   };
 }
-
-const getHeaderItems = () => {
-  const headerItems = data as unknown as HeaderItem[];
-
-  let result = "";
-
-  headerItems.forEach((item) => {
-    result += `
-    <li class="nav-item">
-        <a class="nav-link active" aria-current="page" href="${item.link}">${item.text}</a>
-    </li>
-    `;
-  });
-
-  return result;
-};
