@@ -49,7 +49,8 @@ export default class Header extends BaseComponent {
     const btnLogin = document.querySelector<HTMLButtonElement>("#loginBtn");
     if (btnLogin) {
       btnLogin.addEventListener("click", () => {
-        new LoginForm().openForm();
+        if (!this.currentUser) new LoginForm().openForm();
+        else this.logOut();
       });
     }
   };
@@ -78,6 +79,7 @@ export default class Header extends BaseComponent {
     if (rightSection) {
       rightSection.innerHTML = template;
     }
+    this.addListener();
   };
 
   private renderSessionButton = () => {
@@ -90,6 +92,11 @@ export default class Header extends BaseComponent {
       this.currentUser ? "power-off" : "right-to-bracket"
     }"></i></button>
     `;
+  };
+
+  private logOut = () => {
+    new UserManagement().logOutUser();
+    this.setCurrentUser();
   };
 
   setCurrentUser = () => {

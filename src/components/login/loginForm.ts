@@ -17,8 +17,7 @@ export class LoginForm {
       focusConfirm: false,
       confirmButtonText: "Ingresar",
       preConfirm: () => {
-        this.validateForm() && this.logIn();
-        return false;
+        return this.validateForm() && this.logIn();
       },
       didOpen: () => {
         this.initializeInputs();
