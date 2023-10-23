@@ -2,7 +2,11 @@ import { BaseComponent } from "../baseComponent";
 import data from "../../data/header.json";
 import { HeaderItem } from "../../ts/interfaces/headerItem.ts";
 import { LoginForm } from "../login/loginForm.ts";
+import { UserManagement } from "../../ts/utils/userManagement.ts";
+import { User } from "../../ts/interfaces/user.ts";
+
 export default class Header extends BaseComponent {
+  currentUser: User | null;
   constructor() {
     const template =
       /*html*/
@@ -25,20 +29,19 @@ export default class Header extends BaseComponent {
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         ${getHeaderItems()}
         </ul>
-        <ul class="navbar-nav flex-row flex-wrap ms-md-auto">
-          <li class="nav-item">
-            <span class="nav-link active" aria-current="page" href="#"
-              >User Name </span
-            >
-          </li>
-        </ul>
-        
-          <button id="loginBtn" type="button" class="btn btn-primary"><span class="m-2">Ingresar</span><i class="fa-solid fa-right-to-bracket"></i></button>
-      </div>
+        <div id="header-right-section" class="d-flex"></div>
+         </div>
     </nav>
   </header>`;
 
     super(template, "#header");
+    this.currentUser = null;
+  }
+
+  override render() {
+    super.render();
+    this.renderRightSection();
+    // this.setCurrentUser();
     this.addListener();
   }
 
@@ -51,40 +54,53 @@ export default class Header extends BaseComponent {
     }
   };
 
-  // private getLoginForm = () => {
-  //   return `
-  //   <span id="login-form-error" class="text-danger"></span>
-  //   <input id="userNameInput" class="swal2-input"  placeholder="Usuario">
-  //   <input id="passwordInput" class="swal2-input" type="password" placeholder="Contraseña">
-  //   <div class="swal2-radio">
-  //       <label>
-  //           <input type="radio" name="swal2-radio" value="1"><span class="swal2-label">Paciente</span>
-  //       </label>
-  //       <label>
-  //           <input type="radio" name="swal2-radio" value="2"><span class="swal2-label">Doctor</span>
-  //       </label>
-  //   </div>
-  //   `;
-  // };
-  //
-  // private login = () => {
-  //   const userName = document.querySelector<HTMLInputElement>("#userNameInput");
-  //
-  //   if (userName) {
-  //     if (userName.value.trim().length <= 0) {
-  //       return false;
-  //     }
-  //   }
-  //
-  //   const password = document.querySelector<HTMLInputElement>("#passwordInput");
-  //   if (password) {
-  //     if (password.value.trim().length <= 0) {
-  //       return false;
-  //     }
-  //   }
-  //
-  //   return true;
-  // };
+  private renderRightSection = () => {
+    const template = `
+    <ul class="navbar-nav flex-row flex-wrap ms-md-auto">
+          <li class="nav-item">
+            <span id="username-label" class="nav-link active" aria-current="page" href="#"
+              >${
+                this.currentUser
+                  ? `Bienvenido, ${this.currentUser.userName}`
+                  : ""
+              } </span
+            >
+          </li>
+        </ul>
+        
+       ${this.renderSessionButton()}
+      
+    `;
+
+    const rightSection = document.querySelector<HTMLButtonElement>(
+      "#header-right-section",
+    );
+    if (rightSection) {
+      rightSection.innerHTML = template;
+    }
+  };
+
+  private renderSessionButton = () => {
+    return `
+    <button id="loginBtn" type="button" class="btn ${
+      this.currentUser ? "btn-danger" : "btn-primary"
+    }"><span class="m-2">${
+      this.currentUser ? "Salir" : "Ingresar"
+    }</span><i class="fa-solid fa-${
+      this.currentUser ? "power-off" : "right-to-bracket"
+    }"></i></button>
+    `;
+  };
+
+  setCurrentUser = () => {
+    const logInBtn = document.querySelector<HTMLElement>("#loginBtn");
+    const element = document.querySelector<HTMLElement>("#username-label");
+    this.currentUser = new UserManagement().getCurrentUser();
+
+    if (element && logInBtn) {
+      this.renderRightSection();
+    }
+  };
 }
 
 const getHeaderItems = () => {

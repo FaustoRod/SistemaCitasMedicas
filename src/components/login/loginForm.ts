@@ -1,5 +1,6 @@
 ﻿import Swal from "sweetalert2";
 import { UserManagement } from "../../ts/utils/userManagement.ts";
+import Header from "../header/header.ts";
 
 export class LoginForm {
   private userNameInputId = "userNameInput";
@@ -17,7 +18,6 @@ export class LoginForm {
       confirmButtonText: "Ingresar",
       preConfirm: () => {
         this.validateForm() && this.logIn();
-        console.log(new UserManagement().getCurrentUser());
         return false;
       },
       didOpen: () => {
@@ -70,8 +70,10 @@ export class LoginForm {
         this.userNameInput!.value,
         this.passwordInput!.value,
       )
-    )
+    ) {
+      new Header().setCurrentUser();
       return true;
+    }
     this.errorMessage!.innerText = "Usuario o Contraseña Incorrecta";
     return false;
   };

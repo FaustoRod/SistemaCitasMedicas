@@ -11,7 +11,7 @@ export default class Location extends BaseComponent {
 </div>
  `;
     super(template, "#location");
-
+    this.render();
     // document.querySelector<HTMLDivElement>("#location")!.innerHTML =
     //   this.getElement();
 

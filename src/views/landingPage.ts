@@ -22,15 +22,16 @@ export default class LandingPage extends BaseComponent {
         `;
 
     super(template, "#app");
+    this.render();
 
-    new Header();
+    new Header().render();
 
-    new Intro();
+    new Intro().render();
 
-    new Specialities();
+    new Specialities().render();
 
-    new Information();
+    new Information().render();
 
-    new Footer();
+    new Footer().render();
   }
 }

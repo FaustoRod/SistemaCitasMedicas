@@ -33,7 +33,7 @@ export class UserManagement extends DataManagement {
   };
 
   getCurrentUser = () => {
-    return this.getData(import.meta.env.VITE_CURRENT_USER_STORAGE_KEY);
+    return this.getData<User>(import.meta.env.VITE_CURRENT_USER_STORAGE_KEY);
   };
 
   loadDefaultUsers = () => {

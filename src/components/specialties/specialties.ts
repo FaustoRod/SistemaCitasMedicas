@@ -16,11 +16,14 @@ export default class Specialities extends BaseComponent {
     `;
 
     super(template, "#specialties");
-
-    // document.querySelector<HTMLDivElement>("#specialties")!.innerHTML =
-    //   this.getElement();
-
     this.specialties = this.getSpecialties();
+    this.render();
+  }
+
+  override render() {
+    super.render();
+    document.querySelector<HTMLDivElement>("#specialties")!.innerHTML =
+      this.getElement();
 
     const specialtyCardsSectionDesktop = document.querySelector<HTMLDivElement>(
       "#specialty-cards-desktop",
@@ -31,7 +34,8 @@ export default class Specialities extends BaseComponent {
     const specialtyCardsSectionMobile = document.querySelector<HTMLDivElement>(
       "#specialty-cards-mobile",
     )!;
-    specialtyCardsSectionMobile.innerHTML = new Carousel(
+
+    specialtyCardsSectionMobile.innerHTML += new Carousel(
       this.specialties,
     ).getElement();
   }
