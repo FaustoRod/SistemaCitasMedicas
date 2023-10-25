@@ -13,7 +13,7 @@ export default class Header extends BaseComponent {
       `
     <header class="navbar navbar-expand-lg bg-body-secondary mb-2 fixed-top">
     <nav class="container-xxl">
-      <a class="navbar-brand" href="#intro">CITAMED</a>
+      <a class="navbar-brand" href="#">CITAMED</a>
       <button
         class="navbar-toggler"
         type="button"
@@ -42,7 +42,6 @@ export default class Header extends BaseComponent {
     super.render();
     this.renderLeftSection();
     this.renderRightSection();
-    // this.setCurrentUser();
     this.addListener();
   }
 
@@ -54,13 +53,22 @@ export default class Header extends BaseComponent {
         else this.logOut();
       });
     }
+
+    const appointmentBtn =
+      document.querySelector<HTMLButtonElement>("#appointment-btn");
+
+    if (appointmentBtn) {
+      appointmentBtn.addEventListener("click", () => {
+        console.log("test");
+      });
+    }
   };
 
   private renderRightSection = () => {
     const template = `
     <ul class="navbar-nav flex-row flex-wrap ms-md-auto">
           <li class="nav-item">
-            <span id="username-label" class="nav-link active" aria-current="page" href="#"
+            <span id="username-label" class="nav-link active" aria-current="page"
               >${
                 this.currentUser
                   ? `Bienvenido, ${this.currentUser.userName}`
@@ -77,10 +85,10 @@ export default class Header extends BaseComponent {
     const rightSection = document.querySelector<HTMLButtonElement>(
       "#header-right-section",
     );
+
     if (rightSection) {
       rightSection.innerHTML = template;
     }
-    this.addListener();
   };
 
   renderLeftSection = () => {
@@ -100,12 +108,15 @@ export default class Header extends BaseComponent {
     `;
       });
 
-      if (this.currentUser) {
-        result += `<li class="nav-item">
-        <a class="nav-link active" aria-current="page" href="#">Citas</a>
-    </li>`;
-      }
+      //   if (this.currentUser) {
+      //     result += `<li class="nav-item">
+      //     <a id="appointment-btn" class="nav-link active" aria-current="page" >Citas</a>
+      // </li>`;
+      //   }
 
+      result += `<li class="nav-item">
+        <a id="appointment-btn" class="nav-link active" aria-current="page" href="/#appointments">Citas</a>
+    </li>`;
       headerLeftSection.innerHTML = result;
     }
   };
@@ -126,6 +137,10 @@ export default class Header extends BaseComponent {
     new UserManagement().logOutUser();
     this.setCurrentUser();
   };
+
+  // private openAppointmentManagement = () => {
+  //   new AppointmentsPage();
+  // };
 
   setCurrentUser = () => {
     this.currentUser = new UserManagement().getCurrentUser();
