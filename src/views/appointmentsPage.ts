@@ -1,58 +1,29 @@
 ﻿import { BaseComponent } from "../components/baseComponent.ts";
+import { User } from "../ts/interfaces/user.ts";
+import { UserManagement } from "../ts/utils/userManagement.ts";
+import { AppointmentTable } from "../components/appointment/clientAppointmentTable.ts";
 
 export default class AppointmentsPage extends BaseComponent {
+  currentUser: User | null;
   constructor() {
     const template = `
-   <div class="container-fluid min-vh-100">
-    <div class="row"><h1>Citas</h1></div>
-<div class="mb-3">
-  <button
+   <div class="container-fluid mt-5 min-vh-100">
+    <div class="row"><h1 class="mt-3">Citas</h1></div>
+    <div class="row">
+    <div class="col-12">
+    <button
     type="button"
     class="btn btn-primary"
     data-bs-toggle="modal"
     data-bs-target="#createModal"
   >
     Nueva Cita
-  </button>
+  </button></div>
 </div>
 
 <!-- TABLE -->
-<div class="row">
-  <table class="table table-bordered table-striped table-hover">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Nombre</th>
-        <th scope="col">Hora</th>
-        <th scope="col">Estado</th>
-        <th scope="col"></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Juan Perez</td>
-        <td>12:00 pm</td>
-        <td>Pendiente</td>
-        <td>
-          <button class="btn btn-primary">+</button>
-          <button class="btn btn-primary">+</button>
-          <button class="btn btn-primary">+</button>
-        </td>
-      </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Maria Tomas</td>
-        <td>12:00 pm</td>
-        <td>Pendiente</td>
-        <td>
-          <button class="btn btn-primary">+</button>
-          <button class="btn btn-primary">+</button>
-          <button class="btn btn-primary">+</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+<div id="table-section" class="row mt-3">
+  
 </div>
 
 <!-- CREATE MODAL -->
@@ -107,5 +78,7 @@ export default class AppointmentsPage extends BaseComponent {
     `;
     super(template, "#main");
     this.render();
+    this.currentUser = new UserManagement().getCurrentUser();
+    new AppointmentTable(true).render();
   }
 }

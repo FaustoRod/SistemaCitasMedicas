@@ -1,41 +1,29 @@
 import { appointmentStatus } from "./enums/appointmentStatus";
 import { Appointment } from "./interfaces/appointment";
+import { DataManagement } from "./utils/dataManagement.ts";
+import data from "../data/defaultAppointments.json";
 
-export const getAppointments = () => {
-  const appointmentsJson = localStorage.getItem(
-    import.meta.env.VITE_STORAGE_KEY,
-  );
+export class AppointmentManagement extends DataManagement {
+  getAppointments = () => {
+    return this.getDataArray<Appointment>(import.meta.env.VITE_STORAGE_KEY);
+  };
 
-  let appointmentList: Appointment[] = [];
+  // setUpModal = () => {
+  //   const element = document.getElementById("saveAppointmentButton");
+  //   if (element)
+  //     element.addEventListener("click", () => this.saveAppointment());
+  // };
 
-  if (appointmentsJson) {
-    appointmentList = JSON.parse(appointmentsJson);
-  }
-
-  return appointmentList;
-};
-
-export const setUpModal = () => {
-  const element = document.getElementById("saveAppointmentButton");
-  if (element) element.addEventListener("click", () => saveAppointment());
-};
-
-export const saveAppointment = () => {
-  const name = document.querySelector<HTMLInputElement>("#appointment-name");
-  const date = document.querySelector<HTMLInputElement>("#appointment-date");
-
-  console.log(name?.value);
-  console.log(date?.value);
-
-  if (name && date) {
+  saveAppointment = (name: string, doctor: string) => {
     const appointment: Appointment = {
       id: 0,
-      name: name?.value ?? "",
-      time: new Date(date!.value),
+      doctor,
+      name,
+      time: new Date(),
       status: appointmentStatus.Pending,
     };
 
-    const appointmentList = getAppointments();
+    const appointmentList = this.getAppointments();
 
     appointment.id =
       appointmentList.length > 0
@@ -48,5 +36,13 @@ export const saveAppointment = () => {
       import.meta.env.VITE_STORAGE_KEY,
       JSON.stringify(newAppointmentList),
     );
-  }
-};
+  };
+
+  loadDefaultAppointments = () => {
+    this.saveData("", import.meta.env.VITE_STORAGE_KEY);
+    const appointments = data as unknown as Appointment[];
+    appointments.forEach(({ name, doctor }) => {
+      this.saveAppointment(name, doctor);
+    });
+  };
+}
