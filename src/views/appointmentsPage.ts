@@ -1,7 +1,7 @@
 ﻿import { BaseComponent } from "../components/baseComponent.ts";
 import { User } from "../ts/interfaces/user.ts";
 import { UserManagement } from "../ts/utils/userManagement.ts";
-import { AppointmentTable } from "../components/appointment/clientAppointmentTable.ts";
+import { AppointmentTable } from "../components/appointment/appointmentTable.ts";
 
 export default class AppointmentsPage extends BaseComponent {
   currentUser: User | null;

@@ -14,12 +14,12 @@ export class AppointmentManagement extends DataManagement {
   //     element.addEventListener("click", () => this.saveAppointment());
   // };
 
-  saveAppointment = (name: string, doctor: string) => {
+  saveAppointment = (name: string, doctor: string, time: Date) => {
     const appointment: Appointment = {
       id: 0,
       doctor,
       name,
-      time: new Date(),
+      time,
       status: appointmentStatus.Pending,
     };
 
@@ -42,7 +42,7 @@ export class AppointmentManagement extends DataManagement {
     this.saveData("", import.meta.env.VITE_STORAGE_KEY);
     const appointments = data as unknown as Appointment[];
     appointments.forEach(({ name, doctor }) => {
-      this.saveAppointment(name, doctor);
+      this.saveAppointment(name, doctor, new Date());
     });
   };
 }
