@@ -2,6 +2,8 @@
 import { User } from "../ts/interfaces/user.ts";
 import { UserManagement } from "../ts/utils/userManagement.ts";
 import { AppointmentTable } from "../components/appointment/appointmentTable.ts";
+import { AppointmentModal } from "../components/appointment/appointmentModal.ts";
+import { UserCreateModal } from "../components/appointment/userCreateModal.ts";
 
 export default class AppointmentsPage extends BaseComponent {
   currentUser: User | null;
@@ -18,7 +20,16 @@ export default class AppointmentsPage extends BaseComponent {
     data-bs-target="#createModal"
   >
     Nueva Cita
-  </button></div>
+  </button>
+  <button
+    type="button"
+    class="btn btn-primary"
+    data-bs-toggle="modal"
+    data-bs-target="#create-user-modal"
+  >
+    Nueva Paciente
+  </button>
+  </div>
 </div>
 
 <!-- TABLE -->
@@ -27,58 +38,17 @@ export default class AppointmentsPage extends BaseComponent {
 </div>
 
 <!-- CREATE MODAL -->
-<div
-  class="modal fade"
-  id="createModal"
-  tabindex="-1"
-  aria-labelledby="createModalLabel"
-  aria-hidden="true"
->
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="createModalLabel">Nueva Cita</h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <input type="text" class="form-control" id="appointment-id" hidden />
-          <div class="mb-3">
-            <label for="appointment-name" class="col-form-label">Nombre:</label>
-            <input type="text" class="form-control" id="appointment-name" />
-          </div>
-          <div class="mb-3">
-            <label for="appointment-date" class="col-form-label">Fecha:</label>
-            <input type="date" class="form-control" id="appointment-date" />
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          Cancelar
-        </button>
-        <button
-          id="saveAppointmentButton"
-          type="button"
-          class="btn btn-primary"
-        >
-          Guardar
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
+<section id="create-appointment-section"></section>
+<section id="create-user-section"></section>
+
 </div>
 
     `;
     super(template, "#main");
     this.render();
     this.currentUser = new UserManagement().getCurrentUser();
-    new AppointmentTable(true).render();
+    new AppointmentTable(false).render();
+    new AppointmentModal();
+    new UserCreateModal();
   }
 }
