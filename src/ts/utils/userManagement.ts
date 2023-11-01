@@ -45,7 +45,7 @@ export class UserManagement extends DataManagement {
     });
   };
 
-  private getAllUsers = () =>
+  getAllUsers = () =>
     this.getDataArray<User>(import.meta.env.VITE_USER_STORAGE_KEY);
 
   private getUserNewId = () => {

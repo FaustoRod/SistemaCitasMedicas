@@ -83,6 +83,13 @@ export class UserCreateModal extends BaseComponent {
         }
       });
     }
+
+    const createModal = document.getElementById("create-user-modal");
+    createModal?.addEventListener("hidden.bs.modal", () => {
+      const formComponent =
+        document.querySelector<HTMLFormElement>("#create-user-form");
+      formComponent?.reset();
+    });
   };
 
   createUser = () => {

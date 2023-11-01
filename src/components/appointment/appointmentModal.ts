@@ -1,6 +1,11 @@
 ﻿import { BaseComponent } from "../baseComponent.ts";
+import TomSelect from "tom-select";
+import { UserManagement } from "../../ts/utils/userManagement.ts";
+import { UserType } from "../../ts/enums/userTypes.ts";
 
 export class AppointmentModal extends BaseComponent {
+  selectDropdown: TomSelect | undefined;
+
   constructor() {
     const template = `
 <div
@@ -22,11 +27,13 @@ export class AppointmentModal extends BaseComponent {
         ></button>
       </div>
       <div class="modal-body">
-        <form>
+        <form id="appointment-form">
           <input type="text" class="form-control" id="appointment-id" hidden />
           <div class="mb-3">
-            <label for="appointment-name" class="col-form-label">Nombre:</label>
-            <input type="text" class="form-control" id="appointment-name" />
+            <label for="appointment-name" class="col-form-label">Paciente:</label>
+            <select id="appointment-name" data-placeholder="Seleccione Paciente"  autocomplete="off">
+            </select>
+
           </div>
           <div class="mb-3">
             <label for="appointment-date" class="col-form-label">Fecha:</label>
@@ -57,5 +64,49 @@ export class AppointmentModal extends BaseComponent {
 
     super(template, "#create-appointment-section");
     this.render();
+    this.addListeners();
+    this.setUpDropdown();
+    this.setDropdownValues();
   }
+
+  addListeners = () => {
+    const createModal = document.getElementById("createModal");
+    if (createModal) {
+      createModal.addEventListener("shown.bs.modal", () => {
+        this.setDropdownValues();
+      });
+
+      createModal.addEventListener("hidden.bs.modal", () => {
+        const formComponent =
+          document.querySelector<HTMLFormElement>("#appointment-form");
+        formComponent?.reset();
+      });
+    }
+  };
+
+  setDropdownValues = () => {
+    const patientsDropdown =
+      document.querySelector<HTMLSelectElement>("#appointment-name");
+    if (patientsDropdown) {
+      const users = new UserManagement()
+        .getAllUsers()
+        .filter((user) => user.type === UserType.Patient);
+
+      const options = users.map((user) => ({
+        value: user.id,
+        text: user.name,
+      }));
+
+      this.selectDropdown?.addOptions(options);
+    }
+  };
+  setUpDropdown = () => {
+    this.selectDropdown = new TomSelect("#appointment-name", {
+      create: false,
+      sortField: {
+        field: "text",
+        direction: "asc",
+      },
+    });
+  };
 }
