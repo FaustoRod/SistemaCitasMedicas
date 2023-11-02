@@ -1,10 +1,10 @@
 ﻿export abstract class DataManagement {
   protected saveData = (json: string, key: string) => {
-    localStorage.setItem(key, json);
+    sessionStorage.setItem(key, json);
   };
 
   protected getData = <T>(key: string): T | null => {
-    const dataJson = localStorage.getItem(key);
+    const dataJson = sessionStorage.getItem(key);
     if (dataJson) {
       return JSON.parse(dataJson) as T;
     }
@@ -12,7 +12,7 @@
   };
 
   protected getDataArray = <T>(key: string): T[] => {
-    const dataJson = localStorage.getItem(key);
+    const dataJson = sessionStorage.getItem(key);
     if (dataJson) {
       return JSON.parse(dataJson) as T[];
     }

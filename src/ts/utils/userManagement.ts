@@ -3,11 +3,13 @@ import { User } from "../interfaces/user.ts";
 import data from "../../data/defaultUsers.json";
 export class UserManagement extends DataManagement {
   createUser = (user: User) => {
+    if (!this.validateUserName(user.userName)) return false;
     user.id = this.getUserNewId();
     const users = this.getAllUsers();
 
     users.push(user);
     this.saveData(JSON.stringify(users), import.meta.env.VITE_USER_STORAGE_KEY);
+    return true;
   };
 
   logInUser = (userName: string, password: string) => {
@@ -22,6 +24,7 @@ export class UserManagement extends DataManagement {
         JSON.stringify(currentUser),
         import.meta.env.VITE_CURRENT_USER_STORAGE_KEY,
       );
+
       return true;
     }
 
@@ -30,6 +33,7 @@ export class UserManagement extends DataManagement {
 
   logOutUser = () => {
     this.saveData("", import.meta.env.VITE_CURRENT_USER_STORAGE_KEY);
+    sessionStorage.setItem(import.meta.env.VITE_CURRENT_USER_STORAGE_KEY, "");
   };
 
   getCurrentUser = () => {
@@ -43,6 +47,7 @@ export class UserManagement extends DataManagement {
     users.forEach((user) => {
       this.createUser(user);
     });
+    this.logInUser("admin", "admin");
   };
 
   getAllUsers = () =>
@@ -50,5 +55,10 @@ export class UserManagement extends DataManagement {
 
   private getUserNewId = () => {
     return this.getAllUsers().length + 1;
+  };
+
+  private validateUserName = (userName: string) => {
+    const user = this.getAllUsers().find((user) => user.userName === userName);
+    return user == undefined;
   };
 }

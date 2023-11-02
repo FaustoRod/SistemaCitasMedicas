@@ -1,21 +1,27 @@
 ﻿[
   {
     "id": 1,
+    "patientId": 2,
     "patientName": "Jose Perez",
+    "doctorId": 1,
     "doctor": "Jose Romero",
-    "time": "12:00 am",
+    "time": "",
     "status": 0
   },
   {
     "id": 2,
+    "patientId": 2,
     "patientName": "Carlos Mendez",
+    "doctorId": 1,
     "doctor": "Yusepe",
     "time": "",
     "status": 1
   },
   {
     "id": 3,
+    "patientId": 2,
     "patientName": "Ricardo Montaner",
+    "doctorId": 1,
     "doctor": "Bolas Locas",
     "time": "",
     "status": 2

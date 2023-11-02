@@ -74,12 +74,18 @@ export class UserCreateModal extends BaseComponent {
         const form =
           document.querySelector<HTMLFormElement>("#create-user-form");
         if (form?.reportValidity()) {
-          this.createUser();
-          this.modal?.hide();
-          Swal.fire({
-            text: "Usuario Creado con Exito",
-            icon: "success",
-          });
+          if (this.createUser()) {
+            this.modal?.hide();
+            Swal.fire({
+              text: "Usuario Creado con Exito",
+              icon: "success",
+            });
+          } else {
+            Swal.fire({
+              text: "Nombre de usuario ya existe",
+              icon: "error",
+            });
+          }
         }
       });
     }
@@ -102,7 +108,7 @@ export class UserCreateModal extends BaseComponent {
       document.querySelector<HTMLInputElement>("#patient-password")?.value ??
       "";
 
-    new UserManagement().createUser({
+    return new UserManagement().createUser({
       id: 0,
       name,
       userName,

@@ -24,17 +24,23 @@ export class AppointmentManagement extends DataManagement {
 
     const newAppointmentList: Appointment[] = [...appointmentList, appointment];
 
-    localStorage.setItem(
-      import.meta.env.VITE_STORAGE_KEY,
+    this.saveData(
       JSON.stringify(newAppointmentList),
+      import.meta.env.VITE_STORAGE_KEY,
     );
   };
 
   loadDefaultAppointments = () => {
     this.saveData("", import.meta.env.VITE_STORAGE_KEY);
-    const appointments = data as unknown as Appointment[];
+    const appointments = data as unknown as AppointmentCreate[];
     appointments.forEach((appointment) => {
-      this.saveAppointment({ ...appointment, time: new Date() });
+      this.saveAppointment({
+        doctor: appointment.doctor,
+        doctorId: appointment.doctorId,
+        patientId: appointment.patientId,
+        patientName: appointment.patientName,
+        time: new Date(),
+      });
     });
   };
 }

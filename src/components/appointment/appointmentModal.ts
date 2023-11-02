@@ -4,6 +4,7 @@ import { UserManagement } from "../../ts/utils/userManagement.ts";
 import { UserType } from "../../ts/enums/userTypes.ts";
 import moment from "moment";
 import { AppointmentCreate } from "../../ts/interfaces/appointment.ts";
+import { AppointmentManagement } from "../../ts/appointmentManagement.ts";
 
 export class AppointmentModal extends BaseComponent {
   selectDropdown: TomSelect | undefined;
@@ -146,7 +147,6 @@ export class AppointmentModal extends BaseComponent {
         document.querySelector<HTMLInputElement>("#appointment-time")?.value ??
         "";
 
-      console.log(date, time, new Date(`${date} ${time}`));
       const newAppointment: AppointmentCreate = {
         patientId: parseInt(patientId),
         patientName: patientName!,
@@ -155,7 +155,7 @@ export class AppointmentModal extends BaseComponent {
         doctor: currentDoctor?.name ?? "RICARDO",
       };
 
-      console.log(newAppointment);
+      new AppointmentManagement().saveAppointment(newAppointment);
     }
   };
 }
