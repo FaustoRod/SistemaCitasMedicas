@@ -2,9 +2,12 @@
 import TomSelect from "tom-select";
 import { UserManagement } from "../../ts/utils/userManagement.ts";
 import { UserType } from "../../ts/enums/userTypes.ts";
+import moment from "moment";
+import { AppointmentCreate } from "../../ts/interfaces/appointment.ts";
 
 export class AppointmentModal extends BaseComponent {
   selectDropdown: TomSelect | undefined;
+  formComponent: HTMLFormElement | null;
 
   constructor() {
     const template = `
@@ -31,17 +34,21 @@ export class AppointmentModal extends BaseComponent {
           <input type="text" class="form-control" id="appointment-id" hidden />
           <div class="mb-3">
             <label for="appointment-name" class="col-form-label">Paciente:</label>
-            <select id="appointment-name" data-placeholder="Seleccione Paciente"  autocomplete="off">
+            <select id="appointment-name" data-placeholder="Seleccione Paciente"  autocomplete="off" required>
             </select>
 
           </div>
           <div class="mb-3">
             <label for="appointment-date" class="col-form-label">Fecha:</label>
-            <input type="date" class="form-control" id="appointment-date" />
+            <input type="date" class="form-control" id="appointment-date" min="${moment().format(
+              import.meta.env.VITE_DATE_FORMAT,
+            )}" max="${moment()
+              .add(1, "M")
+              .format(import.meta.env.VITE_DATE_FORMAT)}" required/>
           </div>
           <div class="mb-3">
-            <label for="appointment-date" class="col-form-label">Hora:</label>
-            <input type="time" class="form-control" id="appointment-time" />
+            <label for="appointment-time" class="col-form-label">Hora:</label>
+            <input type="time" class="form-control" id="appointment-time" min="08:00" max="17:00" required/>
           </div>
         </form>
       </div>
@@ -64,12 +71,13 @@ export class AppointmentModal extends BaseComponent {
 
     super(template, "#create-appointment-section");
     this.render();
+    this.formComponent = document.querySelector("#appointment-form");
     this.addListeners();
     this.setUpDropdown();
     this.setDropdownValues();
   }
 
-  addListeners = () => {
+  private addListeners = () => {
     const createModal = document.getElementById("createModal");
     if (createModal) {
       createModal.addEventListener("shown.bs.modal", () => {
@@ -77,14 +85,22 @@ export class AppointmentModal extends BaseComponent {
       });
 
       createModal.addEventListener("hidden.bs.modal", () => {
-        const formComponent =
-          document.querySelector<HTMLFormElement>("#appointment-form");
-        formComponent?.reset();
+        this.formComponent?.reset();
+        this.selectDropdown?.setValue("");
+      });
+    }
+
+    const saveAppointmentBtn = document.getElementById("saveAppointmentButton");
+    if (saveAppointmentBtn) {
+      saveAppointmentBtn.addEventListener("click", () => {
+        if (this.formComponent?.reportValidity()) {
+          this.createAppointment();
+        }
       });
     }
   };
 
-  setDropdownValues = () => {
+  private setDropdownValues = () => {
     const patientsDropdown =
       document.querySelector<HTMLSelectElement>("#appointment-name");
     if (patientsDropdown) {
@@ -100,13 +116,46 @@ export class AppointmentModal extends BaseComponent {
       this.selectDropdown?.addOptions(options);
     }
   };
-  setUpDropdown = () => {
+
+  private setUpDropdown = () => {
     this.selectDropdown = new TomSelect("#appointment-name", {
       create: false,
       sortField: {
+        // @ts-ignore
         field: "text",
         direction: "asc",
       },
+      onChange: () => {
+        const current = this.selectDropdown?.getValue();
+        console.log(this.selectDropdown?.getItem(current![0])?.innerText);
+      },
     });
+  };
+
+  private createAppointment = () => {
+    const currentDoctor = new UserManagement().getCurrentUser();
+    if (true || currentDoctor) {
+      const patientId = this.selectDropdown?.getValue()[0]!;
+      const patientName = this.selectDropdown?.getItem(patientId)?.innerText;
+
+      const date =
+        document.querySelector<HTMLInputElement>("#appointment-date")?.value ??
+        "";
+
+      const time =
+        document.querySelector<HTMLInputElement>("#appointment-time")?.value ??
+        "";
+
+      console.log(date, time, new Date(`${date} ${time}`));
+      const newAppointment: AppointmentCreate = {
+        patientId: parseInt(patientId),
+        patientName: patientName!,
+        time: new Date(`${date} ${time}`),
+        doctorId: currentDoctor?.id ?? 0,
+        doctor: currentDoctor?.name ?? "RICARDO",
+      };
+
+      console.log(newAppointment);
+    }
   };
 }

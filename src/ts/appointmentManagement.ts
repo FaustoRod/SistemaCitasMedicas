@@ -1,5 +1,5 @@
 import { appointmentStatus } from "./enums/appointmentStatus";
-import { Appointment } from "./interfaces/appointment";
+import { Appointment, AppointmentCreate } from "./interfaces/appointment";
 import { DataManagement } from "./utils/dataManagement.ts";
 import data from "../data/defaultAppointments.json";
 
@@ -8,19 +8,11 @@ export class AppointmentManagement extends DataManagement {
     return this.getDataArray<Appointment>(import.meta.env.VITE_STORAGE_KEY);
   };
 
-  // setUpModal = () => {
-  //   const element = document.getElementById("saveAppointmentButton");
-  //   if (element)
-  //     element.addEventListener("click", () => this.saveAppointment());
-  // };
-
-  saveAppointment = (name: string, doctor: string, time: Date) => {
+  saveAppointment = (appointmentArg: AppointmentCreate) => {
     const appointment: Appointment = {
       id: 0,
-      doctor,
-      name,
-      time,
       status: appointmentStatus.Pending,
+      ...appointmentArg,
     };
 
     const appointmentList = this.getAppointments();
@@ -41,8 +33,8 @@ export class AppointmentManagement extends DataManagement {
   loadDefaultAppointments = () => {
     this.saveData("", import.meta.env.VITE_STORAGE_KEY);
     const appointments = data as unknown as Appointment[];
-    appointments.forEach(({ name, doctor }) => {
-      this.saveAppointment(name, doctor, new Date());
+    appointments.forEach((appointment) => {
+      this.saveAppointment({ ...appointment, time: new Date() });
     });
   };
 }

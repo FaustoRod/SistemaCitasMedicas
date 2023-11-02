@@ -7,12 +7,14 @@ export class AppointmentTable extends BaseComponent {
   isPatient: boolean;
   constructor(isPatient: boolean) {
     const template = `
-                 <table id="myTable" class="table table-bordered table-striped table-hover">
+<div class="table-responsive">
+<table id="myTable" class="table table-bordered table-striped table-hover">
                     <thead id="table-header">
                     </thead>
                     <tbody id="table-body">                      
                     </tbody>
-                </table>
+                </table></div>
+                 
             `;
 
     super(template, "#table-section");
@@ -57,10 +59,10 @@ export class AppointmentTable extends BaseComponent {
 
     let body = "";
 
-    appointments.forEach(({ id, doctor, name, time, status }) => {
+    appointments.forEach(({ id, doctor, patientName, time, status }) => {
       body += `<tr>
                 <th scope="row">${id}</th>
-                <td>${this.isPatient ? doctor : name}</td>
+                <td>${this.isPatient ? doctor : patientName}</td>
                 <td>${moment(time).format("L")}</td>
                 <td>${moment(time).format("HH:mm")}</td>
                 <td>${appointmentStatusName[status]}</td>

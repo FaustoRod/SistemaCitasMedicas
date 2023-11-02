@@ -5,5 +5,19 @@
     "userName": "admin",
     "password": "admin",
     "type": 2
+  },
+  {
+    "id": 2,
+    "name": "Manuel Perez",
+    "userName": "mperez",
+    "password": "12345",
+    "type": 1
+  },
+  {
+    "id": 3,
+    "name": "Carla Mona",
+    "userName": "cmona",
+    "password": "12345",
+    "type": 1
   }
 ]

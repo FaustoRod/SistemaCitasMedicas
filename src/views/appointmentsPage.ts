@@ -9,7 +9,7 @@ export default class AppointmentsPage extends BaseComponent {
   currentUser: User | null;
   constructor() {
     const template = `
-   <div class="container-fluid mt-5 min-vh-100">
+   <div class="container-fluid container-md mt-5 min-vh-100">
     <div class="row"><h1 class="mt-3">Citas</h1></div>
     <div class="row">
     <div class="col-12">
