@@ -9,6 +9,7 @@ import { UserType } from "../../ts/enums/userTypes.ts";
 export class AppointmentTable extends BaseComponent {
   //@ts-ignore
   isPatient: boolean;
+
   constructor() {
     const template = `
 <div class="table-responsive">
@@ -30,6 +31,7 @@ export class AppointmentTable extends BaseComponent {
     this.setHeader();
     this.setBody();
     new DataTable("#myTable", {
+      columnDefs: [{ targets: 6, orderable: false, width: "10%" }],
       language: {
         lengthMenu: "Mostrar _MENU_ registros por pagina",
         info: "Mostrando pagina _PAGE_ de _PAGES_",
@@ -65,7 +67,7 @@ export class AppointmentTable extends BaseComponent {
     let body = "";
 
     appointments.forEach(
-      ({ id, doctor, patientName, time, status, specialty }) => {
+      ({ id, doctor, patientName, time, status, specialty, patientId }) => {
         body += `<tr>
                 <th scope="row">${id}</th>
                 <td>${this.isPatient ? doctor : patientName}</td>
@@ -73,15 +75,21 @@ export class AppointmentTable extends BaseComponent {
                 <td>${moment(time).format("L")}</td>
                 <td>${moment(time).format("HH:mm")}</td>
                 <td>${appointmentStatusName[status]}</td>
-                ${
+                <td>${
                   this.isPatient
-                    ? ""
+                    ? `<button class="btn btn-danger">Cancelar</button>`
                     : `
-                           <td>
-                            <button class="btn btn-primary">+</button>
-                            <button class="btn btn-primary">+</button>
-                          </td>`
-                }
+                            <button class="btn btn-primary" 
+                            data-bs-toggle="modal" data-bs-target="#createModal"
+                            data-appointment-id="${id}" 
+                            data-patient-id="${patientId}" 
+                            data-date="${moment(time).format("L")}" 
+                            data-time="${moment(time).format("HH:mm")}" 
+                            data-specialty="${specialty}" 
+                            data-edit="true"><i class="fa-regular fa-pen-to-square"></i></button>
+                            <button class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>`
+                }</td>
+                
                </tr>`;
       },
     );

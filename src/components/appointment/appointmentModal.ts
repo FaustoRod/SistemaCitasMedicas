@@ -91,8 +91,14 @@ export class AppointmentModal extends BaseComponent {
   private addListeners = () => {
     const createModal = document.getElementById("createModal");
     if (createModal) {
-      createModal.addEventListener("shown.bs.modal", () => {
+      createModal.addEventListener("shown.bs.modal", (event) => {
         this.setDropdownValues();
+
+        var button = (event as MouseEvent).relatedTarget as HTMLButtonElement;
+        const isEdit = button.getAttribute("data-edit");
+        if (isEdit) {
+          this.setAppointmentInformation(button);
+        }
       });
 
       createModal.addEventListener("hidden.bs.modal", () => {
@@ -196,5 +202,15 @@ export class AppointmentModal extends BaseComponent {
 
       new AppointmentManagement().saveAppointment(newAppointment);
     }
+  };
+
+  private setAppointmentInformation = (eventButton: HTMLButtonElement) => {
+    const id = eventButton.getAttribute("data-appointment-id");
+    const patientId = eventButton.getAttribute("data-patient-id");
+    const date = eventButton.getAttribute("data-date");
+    const time = eventButton.getAttribute("data-time");
+    const specialty = eventButton.getAttribute("data-specialty");
+
+    console.log(id, patientId, date, time, specialty);
   };
 }
