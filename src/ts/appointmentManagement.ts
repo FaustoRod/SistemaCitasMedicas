@@ -33,14 +33,17 @@ export class AppointmentManagement extends DataManagement {
   loadDefaultAppointments = () => {
     this.saveData("", import.meta.env.VITE_STORAGE_KEY);
     const appointments = data as unknown as AppointmentCreate[];
-    appointments.forEach((appointment) => {
-      this.saveAppointment({
-        doctor: appointment.doctor,
-        doctorId: appointment.doctorId,
-        patientId: appointment.patientId,
-        patientName: appointment.patientName,
-        time: new Date(),
-      });
-    });
+    appointments.forEach(
+      ({ specialty, doctor, doctorId, patientId, patientName }) => {
+        this.saveAppointment({
+          specialty,
+          doctor,
+          doctorId,
+          patientId,
+          patientName,
+          time: new Date(),
+        });
+      },
+    );
   };
 }

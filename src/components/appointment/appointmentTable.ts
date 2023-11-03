@@ -3,9 +3,13 @@ import { AppointmentManagement } from "../../ts/appointmentManagement.ts";
 import DataTable from "datatables.net-dt";
 import moment from "moment";
 import { appointmentStatusName } from "../../ts/enums/appointmentStatus.ts";
+import { UserManagement } from "../../ts/utils/userManagement.ts";
+import { UserType } from "../../ts/enums/userTypes.ts";
+
 export class AppointmentTable extends BaseComponent {
+  //@ts-ignore
   isPatient: boolean;
-  constructor(isPatient: boolean) {
+  constructor() {
     const template = `
 <div class="table-responsive">
 <table id="myTable" class="table table-bordered table-striped table-hover">
@@ -18,7 +22,7 @@ export class AppointmentTable extends BaseComponent {
             `;
 
     super(template, "#table-section");
-    this.isPatient = isPatient;
+    this.setUserType();
   }
 
   override render() {
@@ -44,6 +48,7 @@ export class AppointmentTable extends BaseComponent {
     const header = `<tr>
           <th scope="col">#</th>
           <th scope="col">${this.isPatient ? "Doctor" : "Nombre"}</th>
+          <th scope="col">Especialidad</th>
           <th scope="col">Fecha</th>
           <th scope="col">Hora</th>
           <th scope="col">Estado</th>
@@ -59,10 +64,12 @@ export class AppointmentTable extends BaseComponent {
 
     let body = "";
 
-    appointments.forEach(({ id, doctor, patientName, time, status }) => {
-      body += `<tr>
+    appointments.forEach(
+      ({ id, doctor, patientName, time, status, specialty }) => {
+        body += `<tr>
                 <th scope="row">${id}</th>
                 <td>${this.isPatient ? doctor : patientName}</td>
+                <td>${specialty}</td>
                 <td>${moment(time).format("L")}</td>
                 <td>${moment(time).format("HH:mm")}</td>
                 <td>${appointmentStatusName[status]}</td>
@@ -76,9 +83,15 @@ export class AppointmentTable extends BaseComponent {
                           </td>`
                 }
                </tr>`;
-    });
+      },
+    );
 
     const tableBody = document.querySelector("#table-body");
     if (tableBody) tableBody.innerHTML = body;
+  };
+
+  private setUserType = () => {
+    const currentUser = new UserManagement().getCurrentUser();
+    this.isPatient = currentUser?.type === UserType.Patient;
   };
 }

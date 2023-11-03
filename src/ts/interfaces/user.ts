@@ -6,4 +6,5 @@ export interface User {
   userName: string;
   password: string;
   type: UserType;
+  specialty?: string;
 }

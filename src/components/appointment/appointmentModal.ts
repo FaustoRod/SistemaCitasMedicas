@@ -5,7 +5,10 @@ import { UserType } from "../../ts/enums/userTypes.ts";
 import moment from "moment";
 import { AppointmentCreate } from "../../ts/interfaces/appointment.ts";
 import { AppointmentManagement } from "../../ts/appointmentManagement.ts";
-
+import specialitiesData from "../../data/specialties.json";
+import Specialty from "../../ts/interfaces/specialty.ts";
+import { AppointmentTable } from "./appointmentTable.ts";
+import Swal from "sweetalert2";
 export class AppointmentModal extends BaseComponent {
   selectDropdown: TomSelect | undefined;
   formComponent: HTMLFormElement | null;
@@ -36,6 +39,12 @@ export class AppointmentModal extends BaseComponent {
           <div class="mb-3">
             <label for="appointment-name" class="col-form-label">Paciente:</label>
             <select id="appointment-name" data-placeholder="Seleccione Paciente"  autocomplete="off" required>
+            </select>
+
+          </div>
+          <div class="mb-3">
+            <label for="specialty" class="col-form-label">Especialidad:</label>
+            <select id="specialty" class="form-select" data-placeholder="Seleccione Especialidad"  autocomplete="off" required>
             </select>
 
           </div>
@@ -75,6 +84,7 @@ export class AppointmentModal extends BaseComponent {
     this.formComponent = document.querySelector("#appointment-form");
     this.addListeners();
     this.setUpDropdown();
+    this.setSpecialties();
     this.setDropdownValues();
   }
 
@@ -86,8 +96,7 @@ export class AppointmentModal extends BaseComponent {
       });
 
       createModal.addEventListener("hidden.bs.modal", () => {
-        this.formComponent?.reset();
-        this.selectDropdown?.setValue("");
+        this.resetForm();
       });
     }
 
@@ -96,6 +105,14 @@ export class AppointmentModal extends BaseComponent {
       saveAppointmentBtn.addEventListener("click", () => {
         if (this.formComponent?.reportValidity()) {
           this.createAppointment();
+          new AppointmentTable().render();
+          this.resetForm();
+          Swal.fire({
+            title: "Cita Creada con Exito",
+            icon: "success",
+            showConfirmButton: false,
+            showCancelButton: false,
+          });
         }
       });
     }
@@ -118,6 +135,18 @@ export class AppointmentModal extends BaseComponent {
     }
   };
 
+  private setSpecialties = () => {
+    const specialties = specialitiesData as unknown as Specialty[];
+    const specialtyDropdown =
+      document.querySelector<HTMLSelectElement>("#specialty");
+    if (specialtyDropdown) {
+      specialties.forEach((specialty, index) => {
+        specialtyDropdown.innerHTML += `<option ${
+          index === 0 ? "selected" : ""
+        } value="${specialty.key}">${specialty.text}</option>`;
+      });
+    }
+  };
   private setUpDropdown = () => {
     this.selectDropdown = new TomSelect("#appointment-name", {
       create: false,
@@ -131,6 +160,11 @@ export class AppointmentModal extends BaseComponent {
         console.log(this.selectDropdown?.getItem(current![0])?.innerText);
       },
     });
+  };
+
+  private resetForm = () => {
+    this.formComponent?.reset();
+    this.selectDropdown?.setValue("");
   };
 
   private createAppointment = () => {
@@ -147,7 +181,12 @@ export class AppointmentModal extends BaseComponent {
         document.querySelector<HTMLInputElement>("#appointment-time")?.value ??
         "";
 
+      const specialty =
+        document.querySelector<HTMLSelectElement>("#specialty")
+          ?.selectedOptions[0].innerText ?? "";
+
       const newAppointment: AppointmentCreate = {
+        specialty: specialty,
         patientId: parseInt(patientId),
         patientName: patientName!,
         time: new Date(`${date} ${time}`),
