@@ -12,19 +12,11 @@ export interface Appointment {
 }
 
 export interface AppointmentCreate {
+  id?: number;
   specialty: string;
   doctorId: number;
   doctor: string;
   patientId: number;
   patientName: string;
   time: Date;
-}
-export interface AppointmentUpdate extends AppointmentCreate {
-  specialty: string;
-  doctorId: number;
-  doctor: string;
-  patientId: number;
-  patientName: string;
-  time: Date;
-  id: number;
 }

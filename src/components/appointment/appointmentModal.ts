@@ -3,16 +3,13 @@ import TomSelect from "tom-select";
 import { UserManagement } from "../../ts/utils/userManagement.ts";
 import { UserType } from "../../ts/enums/userTypes.ts";
 import moment from "moment";
-import {
-  AppointmentCreate,
-  AppointmentUpdate,
-} from "../../ts/interfaces/appointment.ts";
+import { AppointmentCreate } from "../../ts/interfaces/appointment.ts";
 import { AppointmentManagement } from "../../ts/appointmentManagement.ts";
 import specialitiesData from "../../data/specialties.json";
 import Specialty from "../../ts/interfaces/specialty.ts";
 import { AppointmentTable } from "./appointmentTable.ts";
 import Swal from "sweetalert2";
-import { getDate } from "../../ts/utils/helpers.ts";
+import { Modal } from "bootstrap";
 
 export class AppointmentModal extends BaseComponent {
   selectDropdown: TomSelect | undefined;
@@ -20,12 +17,13 @@ export class AppointmentModal extends BaseComponent {
   isEdit: boolean | null;
   //@ts-ignore
   parentButton: HTMLButtonElement;
+  modal?: Modal;
 
   constructor() {
     const template = `
 <div
   class="modal fade"
-  id="createModal"
+  id="createAppointmentModal"
   tabindex="-1"
   aria-labelledby="createModalLabel"
   aria-hidden="true"
@@ -91,6 +89,7 @@ export class AppointmentModal extends BaseComponent {
     this.isEdit = false;
     this.render();
     this.formComponent = document.querySelector("#appointment-form");
+    this.setModal();
     this.addListeners();
     this.setUpDropdown();
     this.setSpecialties();
@@ -98,7 +97,7 @@ export class AppointmentModal extends BaseComponent {
   }
 
   private addListeners = () => {
-    const createModal = document.getElementById("createModal");
+    const createModal = document.getElementById("createAppointmentModal");
     if (createModal) {
       createModal.addEventListener("show.bs.modal", (event) => {
         this.setDropdownValues();
@@ -134,6 +133,7 @@ export class AppointmentModal extends BaseComponent {
               showCancelButton: false,
             });
 
+            this.modal?.hide();
             return;
           }
 
@@ -188,16 +188,14 @@ export class AppointmentModal extends BaseComponent {
         field: "text",
         direction: "asc",
       },
-      onChange: () => {
-        const current = this.selectDropdown?.getValue();
-        console.log(this.selectDropdown?.getItem(current![0])?.innerText);
-      },
+      onChange: () => {},
     });
   };
 
   private resetForm = () => {
     this.formComponent?.reset();
     this.selectDropdown?.setValue("");
+    this.isEdit = false;
   };
 
   private createAppointment = () => {
@@ -232,7 +230,7 @@ export class AppointmentModal extends BaseComponent {
   };
 
   private updateAppointment = () => {
-    const appointment = this.getAppointmentInformation(this.parentButton);
+    const appointment = this.getAppointmentInformation();
     new AppointmentManagement().updateAppointment(appointment!);
   };
 
@@ -263,30 +261,46 @@ export class AppointmentModal extends BaseComponent {
     if (specialtyInput) specialtyInput.value = specialty!;
   };
 
-  private getAppointmentInformation = (
-    eventButton: HTMLButtonElement,
-  ): AppointmentUpdate | null => {
-    const doctor = new UserManagement().getCurrentUser();
-    if (!doctor) return null;
+  private getAppointmentInformation = (): AppointmentCreate | null => {
+    const currentDoctor = new UserManagement().getCurrentUser();
+    if (true || currentDoctor) {
+      const patientId = this.selectDropdown?.getValue()[0]!;
+      const patientName = this.selectDropdown?.getItem(patientId)?.innerText;
 
-    const id = eventButton.getAttribute("data-appointment-id");
-    const patientId = eventButton.getAttribute("data-patient-id");
-    const patientName = eventButton.getAttribute("data-patient-name");
-    const date = eventButton.getAttribute("data-date");
-    const time = eventButton.getAttribute("data-time");
-    const specialty = eventButton.getAttribute("data-specialty");
-    const isEdit = eventButton.getAttribute("data-edit");
-    const dayTime = getDate(date!, time!);
-    console.log(id, patientId, date, time, specialty, isEdit);
+      const date =
+        document.querySelector<HTMLInputElement>("#appointment-date")?.value ??
+        "";
 
-    return {
-      id: +id!,
-      patientId: +patientId!,
-      time: dayTime,
-      specialty: specialty!,
-      patientName: patientName!,
-      doctor: doctor.name,
-      doctorId: doctor.id,
-    };
+      const time =
+        document.querySelector<HTMLInputElement>("#appointment-time")?.value ??
+        "";
+
+      const specialty =
+        document.querySelector<HTMLSelectElement>("#specialty")
+          ?.selectedOptions[0].innerText ?? "";
+
+      const id =
+        document.querySelector<HTMLInputElement>("#appointment-id")?.value ??
+        "";
+
+      return {
+        id: id.length > 0 ? +id : undefined,
+        specialty: specialty,
+        patientId: parseInt(patientId),
+        patientName: patientName!,
+        time: new Date(`${date} ${time}`),
+        doctorId: currentDoctor?.id ?? 0,
+        doctor: currentDoctor?.name ?? "RICARDO",
+      };
+    }
+
+    return null;
+  };
+
+  private setModal = () => {
+    const modalElement = document.querySelector<HTMLElement>(
+      "#createAppointmentModal",
+    );
+    this.modal = new Modal(modalElement!);
   };
 }

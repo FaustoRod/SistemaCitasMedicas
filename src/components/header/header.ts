@@ -58,9 +58,7 @@ export default class Header extends BaseComponent {
       document.querySelector<HTMLButtonElement>("#appointment-btn");
 
     if (appointmentBtn) {
-      appointmentBtn.addEventListener("click", () => {
-        console.log("test");
-      });
+      appointmentBtn.addEventListener("click", () => {});
     }
   };
 

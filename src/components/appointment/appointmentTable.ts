@@ -80,7 +80,7 @@ export class AppointmentTable extends BaseComponent {
                     ? `<button class="btn btn-danger">Cancelar</button>`
                     : `
                             <button class="btn btn-primary" 
-                            data-bs-toggle="modal" data-bs-target="#createModal"
+                            data-bs-toggle="modal" data-bs-target="#createAppointmentModal"
                             data-appointment-id="${id}" 
                             data-patient-id="${patientId}" 
                             data-patient-name="${patientName}" 
