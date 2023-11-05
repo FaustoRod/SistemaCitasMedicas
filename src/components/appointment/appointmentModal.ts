@@ -106,7 +106,6 @@ export class AppointmentModal extends BaseComponent {
     if (createModal) {
       createModal.addEventListener("show.bs.modal", (event) => {
         this.setDropdownValues();
-        console.log("fdd");
 
         this.parentButton = (event as MouseEvent)
           .relatedTarget as HTMLButtonElement;

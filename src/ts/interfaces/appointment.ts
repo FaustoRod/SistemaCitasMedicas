@@ -13,6 +13,7 @@ export interface Appointment {
 
 export interface AppointmentCreate {
   id?: number;
+  status?: appointmentStatus;
   specialty: string;
   doctorId: number;
   doctor: string;

@@ -41,7 +41,7 @@ export class AppointmentManagement extends DataManagement {
     if (appointment) {
       appointment = {
         id: appointmentCreate.id!,
-        status: appointment.status,
+        status: appointmentCreate.status ?? appointment.status,
         ...appointmentCreate,
       };
 
@@ -55,6 +55,14 @@ export class AppointmentManagement extends DataManagement {
       return true;
     }
     return false;
+  };
+
+  deleteAppointment = (id: number) => {
+    const appointment = this.getAppointments().find((x) => x.id === id);
+    if (appointment) {
+      appointment.status = appointmentStatus.Canceled;
+      this.updateAppointment(appointment);
+    }
   };
 
   loadDefaultAppointments = () => {
