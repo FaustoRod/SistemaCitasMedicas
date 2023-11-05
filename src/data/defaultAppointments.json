@@ -2,7 +2,7 @@
   {
     "id": 1,
     "patientId": 2,
-    "patientName": "Jose Perez",
+    "patientName": "Manuel Perez",
     "specialty": "Clinica",
     "doctorId": 1,
     "doctor": "Jose Romero",
@@ -12,8 +12,8 @@
   {
     "id": 2,
     "patientId": 2,
-    "patientName": "Carlos Mendez",
-    "specialty": "Clinica",
+    "patientName": "Manuel Perez",
+    "specialty": "Matrimonio",
     "doctorId": 1,
     "doctor": "Yusepe",
     "time": "",
@@ -21,8 +21,8 @@
   },
   {
     "id": 3,
-    "patientId": 2,
-    "patientName": "Ricardo Montaner",
+    "patientId": 3,
+    "patientName": "Carla Mona",
     "specialty": "Clinica",
     "doctorId": 1,
     "doctor": "Bolas Locas",

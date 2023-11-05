@@ -1,5 +1,9 @@
 import { appointmentStatus } from "./enums/appointmentStatus";
-import { Appointment, AppointmentCreate } from "./interfaces/appointment";
+import {
+  Appointment,
+  AppointmentCreate,
+  AppointmentUpdate,
+} from "./interfaces/appointment";
 import { DataManagement } from "./utils/dataManagement.ts";
 import data from "../data/defaultAppointments.json";
 
@@ -28,6 +32,24 @@ export class AppointmentManagement extends DataManagement {
       JSON.stringify(newAppointmentList),
       import.meta.env.VITE_STORAGE_KEY,
     );
+  };
+
+  updateAppointment = (appointmentCreate: AppointmentUpdate) => {
+    let appointmentIndex = this.getAppointments().findIndex(
+      (a) => a.id === appointmentCreate.id,
+    );
+
+    let appointment = this.getAppointments()[appointmentIndex];
+    console.log("before", appointment);
+    if (appointment) {
+      appointment = {
+        status: appointment.status,
+        ...appointmentCreate,
+      };
+      console.log("after", appointment);
+      return true;
+    }
+    return false;
   };
 
   loadDefaultAppointments = () => {

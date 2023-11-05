@@ -83,6 +83,7 @@ export class AppointmentTable extends BaseComponent {
                             data-bs-toggle="modal" data-bs-target="#createModal"
                             data-appointment-id="${id}" 
                             data-patient-id="${patientId}" 
+                            data-patient-name="${patientName}" 
                             data-date="${moment(time).format("L")}" 
                             data-time="${moment(time).format("HH:mm")}" 
                             data-specialty="${specialty}" 
