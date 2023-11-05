@@ -13,8 +13,9 @@ import { Modal } from "bootstrap";
 
 export class AppointmentModal extends BaseComponent {
   selectDropdown: TomSelect | undefined;
+  //@ts-ignore
   formComponent: HTMLFormElement | null;
-  isEdit: boolean | null;
+  isEdit: boolean;
   //@ts-ignore
   parentButton: HTMLButtonElement;
   modal?: Modal;
@@ -88,6 +89,10 @@ export class AppointmentModal extends BaseComponent {
     super(template, "#create-appointment-section");
     this.isEdit = false;
     this.render();
+  }
+
+  override render() {
+    super.render();
     this.formComponent = document.querySelector("#appointment-form");
     this.setModal();
     this.addListeners();
@@ -101,16 +106,17 @@ export class AppointmentModal extends BaseComponent {
     if (createModal) {
       createModal.addEventListener("show.bs.modal", (event) => {
         this.setDropdownValues();
+        console.log("fdd");
 
-        if (!this.parentButton) {
-          this.parentButton = (event as MouseEvent)
-            .relatedTarget as HTMLButtonElement;
-        }
+        this.parentButton = (event as MouseEvent)
+          .relatedTarget as HTMLButtonElement;
 
         this.isEdit = this.parentButton.getAttribute("data-edit") === "true";
         if (this.isEdit) {
           this.setAppointmentInformation(this.parentButton);
         }
+
+        this.setModalTitle();
       });
 
       createModal.addEventListener("hidden.bs.modal", () => {
@@ -151,6 +157,12 @@ export class AppointmentModal extends BaseComponent {
     }
   };
 
+  private setModalTitle = () => {
+    const title = document.querySelector<HTMLElement>("#createModalLabel");
+    console.log("dfd", this.isEdit);
+    if (title)
+      title.innerText = !this.isEdit ? "Nueva Cita" : "Actualizar Cita";
+  };
   private setDropdownValues = () => {
     const patientsDropdown =
       document.querySelector<HTMLSelectElement>("#appointment-name");

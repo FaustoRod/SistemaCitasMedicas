@@ -17,7 +17,7 @@ export default class AppointmentsPage extends BaseComponent {
     type="button"
     class="btn btn-primary"
     data-bs-toggle="modal"
-    data-bs-target="#createModal"
+    data-bs-target="#createAppointmentModal"
   >
     Nueva Cita
   </button>
