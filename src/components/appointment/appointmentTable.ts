@@ -61,7 +61,7 @@ export class AppointmentTable extends BaseComponent {
           <th scope="col">Fecha</th>
           <th scope="col">Hora</th>
           <th scope="col">Estado</th>
-          ${this.isPatient ? "" : `<th scope="col"></th>`}
+          <th scope="col"></th>
         </tr>`;
 
     const tableHeader = document.querySelector("#table-header");
@@ -74,8 +74,18 @@ export class AppointmentTable extends BaseComponent {
       .filter(
         (appointment) =>
           (this.isPatient && appointment.patientId === this.userId) ||
-          appointment.doctorId === this.userId,
+          (!this.isPatient && appointment.doctorId === this.userId),
       );
+    //
+    // if (this.isPatient) {
+    //   appointments = appointments.filter(
+    //       (appointment) => appointment.patientId === this.userId,
+    //   );
+    // } else {
+    //   appointments = appointments.filter(
+    //       (appointment) => appointment.doctorId === this.userId,
+    //   );
+    // }
 
     let body = "";
 
@@ -116,7 +126,6 @@ export class AppointmentTable extends BaseComponent {
   };
 
   private showDeleteModal = (appointmentId: number) => {
-    console.log(appointmentId);
     Swal.fire({
       title: "Confirmacion",
       text: "Seguro desea cancelar esta cita?",
