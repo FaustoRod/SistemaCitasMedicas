@@ -8,9 +8,9 @@ export default class SpecialtyCard extends BaseComponent {
     
       <div class="card">
         <img src="${img}" class="card-img-top"/>        
-        <div class="card-body">
-            <h5 class="card-title">${title}</h5>
-            <p>
+        <div class="card-body specialty-card">
+            <h5 class="card-title text-center">${title}</h5>
+            <p class="text-wrap">
                 ${description}
             </p>                 
         </div>

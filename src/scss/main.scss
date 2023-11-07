@@ -1,7 +1,19 @@
 @import "bootstrap/scss/bootstrap";
 @import "colors";
+@import "media-query";
 
 #map-container{
   height: 430px; 
   width: 100%;
+}
+
+.bg-intro{
+  background-image: url("../../public/images/calm.jpg");
+}
+
+.specialty-card{
+  min-height: 175px ;
+  max-height: 175px ;
+  
+  font-size: 12px;
 }

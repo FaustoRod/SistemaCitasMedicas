@@ -76,16 +76,6 @@ export class AppointmentTable extends BaseComponent {
           (this.isPatient && appointment.patientId === this.userId) ||
           (!this.isPatient && appointment.doctorId === this.userId),
       );
-    //
-    // if (this.isPatient) {
-    //   appointments = appointments.filter(
-    //       (appointment) => appointment.patientId === this.userId,
-    //   );
-    // } else {
-    //   appointments = appointments.filter(
-    //       (appointment) => appointment.doctorId === this.userId,
-    //   );
-    // }
 
     let body = "";
 
