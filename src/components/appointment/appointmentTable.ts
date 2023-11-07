@@ -100,7 +100,7 @@ export class AppointmentTable extends BaseComponent {
                 <td>${appointmentStatusName[status]}</td>
                 <td>${
                   this.isPatient
-                    ? `<button class="btn btn-danger">Cancelar</button>`
+                    ? `<button class="btn btn-danger  appointment-cancel-btn" data-appointment-id="${id}">Cancelar</button>`
                     : status !== appointmentStatus.Canceled
                     ? `
                             <button class="btn btn-primary" 
