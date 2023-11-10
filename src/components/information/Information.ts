@@ -7,17 +7,12 @@ export default class Information extends BaseComponent {
     const contact = new Contact();
     const template = `
             <div class="container-fluid mt-5">
-            <div class="row"><h1 class="text-center">Informacion</h1></div>
+            <div class="row"><h1 class="text-center">Contactenos</h1></div>
             <div class="row">
-                <div class="col-12 col-md-6 order-2 order-md-1 d-none d-md-flex">
-                <svg class="bd-placeholder-img rounded" width="100%" height="100%
-                " xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 200x200" preserveAspectRatio="xMidYMid slice" focusable="false">
-                <title>Placeholder</title>
-                <rect width="100%" height="100%" fill="#868e96"></rect>
-                <text x="50%" y="50%" fill="#dee2e6" dy=".3em">CONTACTO</text>
-                </svg>
+                <div class="col-12 col-md-6 order-2 order-md-1 d-none d-lg-flex">
+                <img class="img-fluid" src="../../../public/images/hand.jpg"/>
                 </div>
-                <div class="col-12 col-md-6 order-1 order-md-2>
+                <div class="col-12 col-md-12 col-lg-6  order-1 order-md-2>
                     ${contact.getElement()}
                 </div>
             </div>

@@ -6,7 +6,7 @@ import Information from "../components/information/Information.ts";
 export default class LandingPage extends BaseComponent {
   constructor() {
     const template = `
-
+ <div class="container-fluid container-md">
     <section id="intro"></section>
 
     <section id="specialties"></section>
@@ -14,6 +14,10 @@ export default class LandingPage extends BaseComponent {
     <section id="information"></section>
     
     <section id="location"></section>
+ 
+ 
+</div>
+
         `;
 
     super(template, "#main");

@@ -3,24 +3,24 @@
     "key": 1,
     "text": "Matrimonial",
     "description": "Explora consejos de expertos, sugerencias de comunicación y estrategias para mejorar tu relación y crear un amor duradero.",
-    "image": "/jordan-peterson-poetry.png"
+    "image": "/matrimonio.png"
   },
   {
     "key": 2,
     "text": "Niños",
     "description": "Aprenda sobre el desarrollo, el comportamiento y las emociones de los niños, obtenga consejos sobre la crianza eficaz y una educación sana.",
-    "image": "/jordan-peterson-poetry.png"
+    "image": "/ninos.png"
   },
   {
     "key": 3,
     "text": "Femenina",
     "description": "Explorar los aspectos psicológicos únicos de la feminidad, el autocuidado, el empoderamiento y las relaciones.",
-    "image": "/jordan-peterson-poetry.png"
+    "image": "/mujere.jpg"
   },
   {
     "key": 4,
     "text": "Clinica",
     "description": "Descubra información valiosa sobre salud mental, opciones terapéuticas y estrategias para gestionar y mejorar el bienestar psicológico.",
-    "image": "/jordan-peterson-poetry.png"
+    "image": "/clinica.png"
   }
 ]

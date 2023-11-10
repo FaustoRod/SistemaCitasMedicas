@@ -6,7 +6,7 @@
 
 @media only screen and (min-width: 768px){
   .specialty-card{   
-    font-size: 12px !important;
+    font-size: 10px !important;
   }
 }
 
@@ -14,18 +14,13 @@
   .specialty-card{
     min-height: 150px !important;
     max-height: 150px !important;
+    font-size: 12px !important;
   }
 }
 
 
-@media only screen and (min-width: 2560px){
-  body{
-    font-size: 20px !important;    
-  }
-  
+@media only screen and (min-width: 1440px){
   .specialty-card{
-    min-height: 150px !important;
-    max-height: 150px !important;
-    font-size: 20px !important;
+    font-size: 15px !important;
   }
 }
