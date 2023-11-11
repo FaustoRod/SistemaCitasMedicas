@@ -47,7 +47,7 @@ export class UserManagement extends DataManagement {
     users.forEach((user) => {
       this.createUser(user);
     });
-    this.logInUser("admin", "admin");
+    // this.logInUser("admin", "admin");
   };
 
   getAllUsers = () =>

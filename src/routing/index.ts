@@ -13,7 +13,7 @@ const manageRoutes = () => {
     }
   }
 
-  new Header().setCurrentUser();
+  // new Header().setCurrentUser();
 };
 
 window.addEventListener("load", manageRoutes);

@@ -3,10 +3,8 @@ import data from "../../data/header.json";
 import { HeaderItem } from "../../ts/interfaces/headerItem.ts";
 import { LoginForm } from "../login/loginForm.ts";
 import { UserManagement } from "../../ts/utils/userManagement.ts";
-import { User } from "../../ts/interfaces/user.ts";
 
 export default class Header extends BaseComponent {
-  currentUser: User | null;
   constructor() {
     const template =
       /*html*/
@@ -36,7 +34,6 @@ export default class Header extends BaseComponent {
   </header>`;
 
     super(template, "#header");
-    this.currentUser = null;
   }
 
   override render() {
@@ -48,19 +45,20 @@ export default class Header extends BaseComponent {
 
   private addListener = () => {
     const btnLogin = document.querySelector<HTMLButtonElement>("#loginBtn");
+
     if (btnLogin) {
       btnLogin.addEventListener("click", () => {
-        if (!this.currentUser) new LoginForm().openForm();
+        if (!new UserManagement().getCurrentUser()) new LoginForm().openForm();
         else this.logOut();
       });
     }
 
-    const appointmentBtn =
-      document.querySelector<HTMLButtonElement>("#appointment-btn");
-
-    if (appointmentBtn) {
-      appointmentBtn.addEventListener("click", () => {});
-    }
+    // const appointmentBtn =
+    //   document.querySelector<HTMLButtonElement>("#appointment-btn");
+    //
+    // if (appointmentBtn) {
+    //   appointmentBtn.addEventListener("click", () => {});
+    // }
   };
 
   private renderRightSection = () => {
@@ -69,8 +67,10 @@ export default class Header extends BaseComponent {
           <li class="nav-item">
             <span id="username-label" class="nav-link active" aria-current="page"
               >${
-                this.currentUser
-                  ? `Bienvenido, ${this.currentUser.userName}`
+                new UserManagement().getCurrentUser()
+                  ? `Bienvenido, ${
+                      new UserManagement().getCurrentUser()!.userName
+                    }`
                   : ""
               } </span
             >
@@ -113,7 +113,8 @@ export default class Header extends BaseComponent {
       // </li>`;
       //   }
 
-      result += `<li class="nav-item">
+      if (new UserManagement().getCurrentUser())
+        result += `<li class="nav-item">
         <a id="appointment-btn" class="nav-link active" aria-current="page" href="/#appointments">Citas</a>
     </li>`;
       headerLeftSection.innerHTML = result;
@@ -121,13 +122,14 @@ export default class Header extends BaseComponent {
   };
 
   private renderSessionButton = () => {
+    const currentUser = new UserManagement().getCurrentUser();
     return `
     <button id="loginBtn" type="button" class="btn ${
-      this.currentUser ? "btn-danger" : "btn-primary"
+      currentUser ? "btn-danger" : "btn-primary"
     }"><span class="m-2">${
-      this.currentUser ? "Salir" : "Ingresar"
+      currentUser ? "Salir" : "Ingresar"
     }</span><i class="fa-solid fa-${
-      this.currentUser ? "power-off" : "right-to-bracket"
+      currentUser ? "power-off" : "right-to-bracket"
     }"></i></button>
     `;
   };
@@ -137,15 +139,11 @@ export default class Header extends BaseComponent {
     this.setCurrentUser();
   };
 
-  // private openAppointmentManagement = () => {
-  //   new AppointmentsPage();
-  // };
-
   setCurrentUser = () => {
-    this.currentUser = new UserManagement().getCurrentUser();
-
     this.renderRightSection();
 
     this.renderLeftSection();
+
+    this.addListener();
   };
 }
