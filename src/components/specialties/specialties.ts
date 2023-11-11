@@ -8,7 +8,7 @@ export default class Specialities extends BaseComponent {
   specialties: Specialty[];
   constructor() {
     const template = /*html */ `
-        <div class="container-fluid">
+        <div class="container-fluid" data-aos="fade-in">
             <div class="row text-center mt-5"><h1>Especialidades</h1></div>
             <div id="specialty-cards-desktop" class="row d-none d-md-flex"></div>
             <div id="specialty-cards-mobile" class="row d-md-none"></div>

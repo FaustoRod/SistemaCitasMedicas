@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "devDependencies": {
+    "@types/aos": "^3.0.7",
     "@types/bootstrap": "^5.2.8",
     "prettier": "3.0.3",
     "sass": "^1.68.0",

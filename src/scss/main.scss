@@ -2,18 +2,23 @@
 @import "colors";
 @import "media-query";
 
-#map-container{
-  height: 430px; 
+#map-container {
+  height: 430px;
   width: 100%;
 }
 
-.bg-intro{
+#main {
+  background: rgb(238, 174, 202);
+  background: radial-gradient(circle, rgba(238, 174, 202, 1) 0%, rgba(148, 187, 233, 1) 100%);
+}
+
+.bg-intro {
   background-image: url("../../public/images/calm.jpg");
 }
 
-.specialty-card{
-  min-height: 175px ;
-  max-height: 175px ;
-  
+.specialty-card {
+  min-height: 175px;
+  max-height: 175px;
+
   font-size: 12px;
 }

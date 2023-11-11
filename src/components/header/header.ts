@@ -13,7 +13,8 @@ export default class Header extends BaseComponent {
       `
     <header class="navbar navbar-expand-lg bg-body-secondary mb-2 fixed-top">
     <nav class="container-xxl">
-      <a class="navbar-brand" href="#">PSIMED</a>
+        
+      <a class="navbar-brand "  href="#"><i class="fa-solid fa-brain"></i> PSIMED</a>
       <button
         class="navbar-toggler"
         type="button"

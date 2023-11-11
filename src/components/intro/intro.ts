@@ -3,7 +3,7 @@ import { BaseComponent } from "../baseComponent";
 export default class Intro extends BaseComponent {
   constructor() {
     const template = /*html */ `
-    <div class="container-fluid bg-dark mt-5 bg-intro">
+    <div class="container-fluid  mt-5 bg-intro rounded-pill">
     <div class="container">
       <div class="row">
         <div

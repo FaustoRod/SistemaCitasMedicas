@@ -7,13 +7,13 @@ export default class LandingPage extends BaseComponent {
   constructor() {
     const template = `
  <div class="container-fluid container-md">
-    <section id="intro"></section>
+    <section id="intro"  data-aos="fade-up" ></section>
 
-    <section id="specialties"></section>
+    <section id="specialties"  data-aos="fade-up"></section>
 
-    <section id="information"></section>
+    <section id="information"  data-aos="fade-up"></section>
     
-    <section id="location"></section>
+    <section id="location"  data-aos="fade-up"></section>
  
  
 </div>

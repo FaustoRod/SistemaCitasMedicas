@@ -32,7 +32,7 @@ export default class Contact extends BaseComponent {
                                     <textarea type="text" class="form-control" minlength="10" maxlength="250" id="question" required></textarea>
                                 </div>
                                 
-                                <button id="information-submit" type="submit" class="btn btn-primary col-12" >Enviar</button>
+                                <button id="information-submit" type="submit" class="btn btn-outline-primary col-12" >Enviar</button>
                             </div>
                         </form>
                     </section>
