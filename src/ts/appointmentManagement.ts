@@ -59,14 +59,6 @@ export class AppointmentManagement extends DataManagement {
     return false;
   };
 
-  deleteAppointment = (id: number) => {
-    const appointment = this.getAppointments().find((x) => x.id === id);
-    if (appointment) {
-      appointment.status = appointmentStatus.Canceled;
-      this.updateAppointment(appointment);
-    }
-  };
-
   loadDefaultAppointments = () => {
     this.saveLocalData("", import.meta.env.VITE_STORAGE_KEY);
     const appointments = data as unknown as AppointmentCreate[];
@@ -82,5 +74,13 @@ export class AppointmentManagement extends DataManagement {
         });
       },
     );
+  };
+
+  updateState = (id: number, status: appointmentStatus) => {
+    const appointment = this.getAppointments().find((x) => x.id === id);
+    if (appointment) {
+      appointment.status = status;
+      this.updateAppointment(appointment);
+    }
   };
 }

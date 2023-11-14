@@ -38,7 +38,7 @@ export class AppointmentTable extends BaseComponent {
     this.setBody();
     this.addListeners();
     new DataTable("#myTable", {
-      columnDefs: [{ targets: 6, orderable: false, width: "10%" }],
+      columnDefs: [{ targets: 6, orderable: false, width: "12%" }],
       language: {
         lengthMenu: "Mostrar _MENU_ registros por pagina",
         info: "Mostrando pagina _PAGE_ de _PAGES_",
@@ -91,8 +91,11 @@ export class AppointmentTable extends BaseComponent {
                 <td>${
                   this.isPatient
                     ? `<button class="btn btn-danger  appointment-cancel-btn" data-appointment-id="${id}">Cancelar</button>`
-                    : status !== appointmentStatus.Canceled
+                    : status === appointmentStatus.Pending
                     ? `
+                            <button class="btn btn-success appointment-complete-btn" 
+                            data-appointment-id="${id}" ><i class="fa-regular fa-circle-check"></i></button>
+                            
                             <button class="btn btn-primary" 
                             data-bs-toggle="modal" data-bs-target="#createAppointmentModal"
                             data-appointment-id="${id}" 
@@ -102,6 +105,7 @@ export class AppointmentTable extends BaseComponent {
                             data-time="${moment(time).format("HH:mm")}" 
                             data-specialty="${specialty}" 
                             data-edit="true"><i class="fa-regular fa-pen-to-square"></i></button>
+                            
                             <button class="btn btn-danger appointment-cancel-btn" 
                             data-appointment-id="${id}" ><i class="fa-solid fa-trash"></i></button>`
                     : ""
@@ -125,9 +129,35 @@ export class AppointmentTable extends BaseComponent {
       cancelButtonText: "No",
     }).then((result) => {
       if (result.isConfirmed) {
-        new AppointmentManagement().deleteAppointment(appointmentId);
+        new AppointmentManagement().updateState(
+          appointmentId,
+          appointmentStatus.Canceled,
+        );
         Swal.fire({
           text: "Cita eliminada con exito.",
+          icon: "success",
+        });
+        this.render();
+      }
+    });
+  };
+
+  private showCompleteModal = (appointmentId: number) => {
+    Swal.fire({
+      title: "Confirmacion",
+      text: "Seguro desea completar esta cita?",
+      icon: "question",
+      confirmButtonText: "Si",
+      showCancelButton: true,
+      cancelButtonText: "No",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        new AppointmentManagement().updateState(
+          appointmentId,
+          appointmentStatus.Done,
+        );
+        Swal.fire({
+          text: "Cita completada con exito.",
           icon: "success",
         });
         this.render();
@@ -142,13 +172,23 @@ export class AppointmentTable extends BaseComponent {
   };
 
   private addListeners = () => {
-    const buttons = document.querySelectorAll<HTMLButtonElement>(
+    const cancelButtons = document.querySelectorAll<HTMLButtonElement>(
       ".appointment-cancel-btn",
     );
 
-    for (const button of buttons) {
+    for (const button of cancelButtons) {
       button.addEventListener("click", () => {
         this.showDeleteModal(+button.getAttribute("data-appointment-id")!);
+      });
+    }
+
+    const completeButtons = document.querySelectorAll<HTMLButtonElement>(
+      ".appointment-complete-btn",
+    );
+
+    for (const button of completeButtons) {
+      button.addEventListener("click", () => {
+        this.showCompleteModal(+button.getAttribute("data-appointment-id")!);
       });
     }
   };
