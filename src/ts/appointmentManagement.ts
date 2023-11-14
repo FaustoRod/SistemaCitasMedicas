@@ -5,7 +5,9 @@ import data from "../data/defaultAppointments.json";
 
 export class AppointmentManagement extends DataManagement {
   getAppointments = () => {
-    return this.getDataArray<Appointment>(import.meta.env.VITE_STORAGE_KEY);
+    return this.getLocalDataArray<Appointment>(
+      import.meta.env.VITE_STORAGE_KEY,
+    );
   };
 
   saveAppointment = (appointmentArg: AppointmentCreate) => {
@@ -24,7 +26,7 @@ export class AppointmentManagement extends DataManagement {
 
     const newAppointmentList: Appointment[] = [...appointmentList, appointment];
 
-    this.saveData(
+    this.saveLocalData(
       JSON.stringify(newAppointmentList),
       import.meta.env.VITE_STORAGE_KEY,
     );
@@ -47,7 +49,7 @@ export class AppointmentManagement extends DataManagement {
 
       currentAppointments[appointmentIndex] = appointment;
 
-      this.saveData(
+      this.saveLocalData(
         JSON.stringify(currentAppointments),
         import.meta.env.VITE_STORAGE_KEY,
       );
@@ -66,7 +68,7 @@ export class AppointmentManagement extends DataManagement {
   };
 
   loadDefaultAppointments = () => {
-    this.saveData("", import.meta.env.VITE_STORAGE_KEY);
+    this.saveLocalData("", import.meta.env.VITE_STORAGE_KEY);
     const appointments = data as unknown as AppointmentCreate[];
     appointments.forEach(
       ({ specialty, doctor, doctorId, patientId, patientName }) => {

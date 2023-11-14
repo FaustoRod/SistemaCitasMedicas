@@ -8,7 +8,10 @@ export class UserManagement extends DataManagement {
     const users = this.getAllUsers();
 
     users.push(user);
-    this.saveData(JSON.stringify(users), import.meta.env.VITE_USER_STORAGE_KEY);
+    this.saveLocalData(
+      JSON.stringify(users),
+      import.meta.env.VITE_USER_STORAGE_KEY,
+    );
     return true;
   };
 
@@ -20,7 +23,7 @@ export class UserManagement extends DataManagement {
     );
 
     if (currentUser) {
-      this.saveData(
+      this.saveSessionData(
         JSON.stringify(currentUser),
         import.meta.env.VITE_CURRENT_USER_STORAGE_KEY,
       );
@@ -32,26 +35,27 @@ export class UserManagement extends DataManagement {
   };
 
   logOutUser = () => {
-    this.saveData("", import.meta.env.VITE_CURRENT_USER_STORAGE_KEY);
+    this.saveSessionData("", import.meta.env.VITE_CURRENT_USER_STORAGE_KEY);
     sessionStorage.setItem(import.meta.env.VITE_CURRENT_USER_STORAGE_KEY, "");
   };
 
   getCurrentUser = () => {
-    return this.getData<User>(import.meta.env.VITE_CURRENT_USER_STORAGE_KEY);
+    return this.getSessionData<User>(
+      import.meta.env.VITE_CURRENT_USER_STORAGE_KEY,
+    );
   };
 
   loadDefaultUsers = () => {
-    this.saveData("", import.meta.env.VITE_USER_STORAGE_KEY);
-    this.saveData("", import.meta.env.VITE_CURRENT_USER_STORAGE_KEY);
+    // this.saveLocalData("", import.meta.env.VITE_USER_STORAGE_KEY);
+    // this.saveSessionData("", import.meta.env.VITE_CURRENT_USER_STORAGE_KEY);
     const users = data as unknown as User[];
     users.forEach((user) => {
       this.createUser(user);
     });
-    // this.logInUser("admin", "admin");
   };
 
   getAllUsers = () =>
-    this.getDataArray<User>(import.meta.env.VITE_USER_STORAGE_KEY);
+    this.getLocalDataArray<User>(import.meta.env.VITE_USER_STORAGE_KEY);
 
   private getUserNewId = () => {
     return this.getAllUsers().length + 1;

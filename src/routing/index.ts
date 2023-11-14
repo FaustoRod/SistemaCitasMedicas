@@ -1,6 +1,6 @@
 ﻿import AppointmentsPage from "../views/appointmentsPage.ts";
 import LandingPage from "../views/landingPage.ts";
-import Header from "../components/header/header.ts";
+// import Header from "../components/header/header.ts";
 
 const manageRoutes = () => {
   const url = window.location.hash.slice(1) || "/";
