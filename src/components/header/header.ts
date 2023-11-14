@@ -136,6 +136,7 @@ export default class Header extends BaseComponent {
 
   private logOut = () => {
     new UserManagement().logOutUser();
+    window.location.replace("/")
     this.setCurrentUser();
   };
 
