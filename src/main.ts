@@ -10,7 +10,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 
 new UserManagement().loadDefaultUsers();
-new AppointmentManagement().loadDefaultAppointments();
+// new AppointmentManagement().loadDefaultAppointments();
 new MainLayout();
 new LandingPage();
 AOS.init();

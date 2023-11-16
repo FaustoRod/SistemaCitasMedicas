@@ -69,7 +69,7 @@ export default class Header extends BaseComponent {
               >${
                 new UserManagement().getCurrentUser()
                   ? `Bienvenido, ${
-                      new UserManagement().getCurrentUser()!.userName
+                      new UserManagement().getCurrentUser()!.name
                     }`
                   : ""
               } </span

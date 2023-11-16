@@ -20,5 +20,12 @@
     "userName": "cmona",
     "password": "12345",
     "type": 1
-  }
+  },{
+  "id": 4,
+  "name": "Ana M. Polo",
+  "userName": "apolo",
+  "password": "apolo",
+  "specialty": "Matrimonio",
+  "type": 2
+}
 ]
